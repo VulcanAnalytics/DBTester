@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Reflection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using VulcanAnalytics.DBTester.Exceptions;
@@ -95,6 +94,16 @@ namespace VulcanAnalytics.DBTester.dbSpecflow_tests
             }
 
             Assert.AreEqual(typeof(bool), returnType,"HasTable method doesn't return the correct type");
+        }
+
+        [TestMethod]
+        public void DatabaseTesterHasSchemaDboReturnsTrue()
+        {
+            var connectionstring = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=tempdb;Integrated Security=SSPI;";
+
+            var dbTester = new DatabaseTester(connectionstring);
+
+            Assert.IsTrue(dbTester.HasSchema("dbo"));
         }
 
         private MethodInfo[] GetMethods(Type type,string name)

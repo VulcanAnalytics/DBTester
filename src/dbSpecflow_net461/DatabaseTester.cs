@@ -1,4 +1,5 @@
-﻿using Microsoft.SqlServer.Management.Smo;
+﻿using Microsoft.SqlServer.Management.Common;
+using Microsoft.SqlServer.Management.Smo;
 using System;
 using System.Data.SqlClient;
 using VulcanAnalytics.DBTester.Exceptions;
@@ -20,9 +21,16 @@ namespace VulcanAnalytics.DBTester
 
             try
             {
-                connection.ConnectionString = connectionString;
+                // Reset timeout to 2 seconds for faster test results
+                var builder = new SqlConnectionStringBuilder();
+                builder.ConnectionString = connectionString;
+                builder.ConnectTimeout = 2;
 
-                dbServer = new Server(connectionString);
+                connection.ConnectionString = builder.ConnectionString;
+
+                ServerConnection conn = new ServerConnection(connection);
+
+                dbServer = new Server(conn);
                 var c = dbServer.Databases.Count;
             }
             catch (Exception e)
