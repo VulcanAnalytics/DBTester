@@ -61,15 +61,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="DatabaseTesterTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\src\dbSpecflow\dbSpecflow.csproj">
-      <Project>{a6730fae-230a-4713-8d10-d63e821e30a3}</Project>
-      <Name>dbSpecflow</Name>
+    <ProjectReference Include="..\..\src\dbSpecflow_net461\dbSpecflow_net461.csproj">
+      <Project>{83de582a-0798-4ed1-bfca-3df185699300}</Project>
+      <Name>dbSpecflow_net461</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
