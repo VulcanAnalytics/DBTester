@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+    <metadata>
+	    <id>VulcanAnalytics.DBTester</id>
+      <version>0.1.0.0004-alpha</version>
+      <authors>Edward Comeau</authors>
+      <owners>Edward Comeau</owners>
+      <description>Database Testing library</description>
+      
+    <packageTypes>
+        <packageType name="Dependency" />
+    </packageTypes>
+      
+      <!-- Dependencies are automatically installed when the package is installed -->
+    <dependencies>
+        <dependency id="Microsoft.SqlServer.SqlManagementObjects" version="140.17283.0" />
+    </dependencies>
+      
+    </metadata>
+</package>
