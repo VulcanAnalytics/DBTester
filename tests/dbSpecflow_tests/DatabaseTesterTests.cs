@@ -83,6 +83,29 @@ namespace VulcanAnalytics.DBTester.dbSpecflow_tests
         }
 
         [TestMethod]
+        public void MethodHasTableReturnsTrueWhenTableExists()
+        {
+            var tester = new DatabaseTester(availableConnString);
+            tester.ExecuteStatementWithoutResult("drop table if exists [dbo].[testtable];");
+            tester.ExecuteStatementWithoutResult("create table [dbo].[testtable]([col1] int);");
+
+            var hasTable = tester.HasTable("dbo", "testtable");
+
+            Assert.IsTrue(hasTable);
+        }
+
+        [TestMethod]
+        public void MethodHasTableReturnsFalseWhenTableDoesntExist()
+        {
+            var tester = new DatabaseTester(availableConnString);
+            tester.ExecuteStatementWithoutResult("drop table if exists [dbo].[notable]");
+
+            var hasTable = tester.HasTable("dbo", "notable");
+
+            Assert.IsFalse(hasTable);
+        }
+
+        [TestMethod]
         public void DatabaseTesterMethodHasTableReturnsBool()
         {
             Type returnType = null;
