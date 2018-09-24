@@ -69,7 +69,7 @@ namespace VulcanAnalytics.DBTester.dbSpecflow_tests
         }
 
         [TestMethod]
-        public void DatabasetesterHasHasTableMethod()
+        public void DatabasetesterHasMethodHasTable()
         {
             var methodFound = false;
 
@@ -104,6 +104,20 @@ namespace VulcanAnalytics.DBTester.dbSpecflow_tests
             var dbTester = new DatabaseTester(connectionstring);
 
             Assert.IsTrue(dbTester.HasSchema("dbo"));
+        }
+
+        [TestMethod]
+        public void DatabasetesterHasMethodExecuteStatementWithoutResult()
+        {
+            var methodFound = false;
+
+            var methods = GetMethods(databasetesterType, "ExecuteStatementWithoutResult");
+            if (methods.Length > 0)
+            {
+                methodFound = true;
+            }
+
+            Assert.IsTrue(methodFound, "Method of required name not found");
         }
 
         private MethodInfo[] GetMethods(Type type,string name)

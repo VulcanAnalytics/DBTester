@@ -58,5 +58,10 @@ namespace VulcanAnalytics.DBTester
         {
             return database.Tables.Contains(tableName, schemaName);
         }
+
+        public void ExecuteStatementWithoutResult(string sqlStatement)
+        {
+            database.ExecuteNonQuery(sqlStatement);
+        }
     }
 }
