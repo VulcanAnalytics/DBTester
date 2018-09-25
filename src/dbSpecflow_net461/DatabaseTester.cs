@@ -59,6 +59,17 @@ namespace VulcanAnalytics.DBTester
             return database.Tables.Contains(tableName, schemaName);
         }
 
+        public int RowCount(string schemaName, string objectName)
+        {
+            var sqlStatement = string.Format("select count(*) from {0}.{1};",schemaName,objectName);
+
+            var results = database.ExecuteWithResults(sqlStatement);
+
+            var count = int.Parse(results.Tables[0].Rows[0][0].ToString());
+
+            return count;
+        }
+
         public void ExecuteStatementWithoutResult(string sqlStatement)
         {
             database.ExecuteNonQuery(sqlStatement);

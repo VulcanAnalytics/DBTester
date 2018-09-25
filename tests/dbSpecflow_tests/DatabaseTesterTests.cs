@@ -142,6 +142,60 @@ namespace VulcanAnalytics.DBTester.dbSpecflow_tests
 
             Assert.IsTrue(methodFound, "Method of required name not found");
         }
+               
+        [TestMethod]
+        public void DatabasetesterHasMethodRowCount()
+        {
+            var methodFound = false;
+
+            var methods = GetMethods(databasetesterType, "RowCount");
+            if (methods.Length > 0)
+            {
+                methodFound = true;
+            }
+
+            Assert.IsTrue(methodFound, "Method of required name not found");
+        }
+
+        [TestMethod]
+        public void RowCountReturnsNumberOfRowsFromTable()
+        {
+            var expectedCount = 5;
+            var tester = new DatabaseTester(availableConnString);
+            tester.ExecuteStatementWithoutResult("drop table if exists [dbo].[testtable];");
+            tester.ExecuteStatementWithoutResult("create table [dbo].[testtable]([col1] int);");
+            var i = 0;
+            while (i < expectedCount)
+            {
+                tester.ExecuteStatementWithoutResult("insert into [dbo].[testtable]([col1]) values(99);");
+                i++;
+            }
+
+            var actualCount = tester.RowCount("dbo", "testtable");
+
+            Assert.AreEqual(expectedCount,actualCount);
+        }
+
+        [TestMethod]
+        public void RowCountReturnsNumberOfRowsFromView()
+        {
+            var expectedCount = 5;
+            var tester = new DatabaseTester(availableConnString);
+            tester.ExecuteStatementWithoutResult("drop table if exists [dbo].[testtable];");
+            tester.ExecuteStatementWithoutResult("create table [dbo].[testtable]([col1] int);");
+            var i = 0;
+            while (i < expectedCount)
+            {
+                tester.ExecuteStatementWithoutResult("insert into [dbo].[testtable]([col1]) values(99);");
+                i++;
+            }
+            tester.ExecuteStatementWithoutResult("drop view if exists [dbo].[testview];");
+            tester.ExecuteStatementWithoutResult("create view [dbo].[testview] as select [col1] from [dbo].[testtable];");
+
+            var actualCount = tester.RowCount("dbo", "testview");
+
+            Assert.AreEqual(expectedCount, actualCount);
+        }
 
         private MethodInfo[] GetMethods(Type type,string name)
         {
