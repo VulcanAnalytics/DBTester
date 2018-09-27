@@ -71,4 +71,4 @@ If you're running into problems, please file an issue here on GitHub at the top 
 
 ### License, etc.
 
-DBTester is Copyright &copy; 2018 Darren Comeau(https://jimmybogard.com) and other contributors under the [GNU GPLv3 License](LICENSE.txt).
+DBTester is Copyright &copy; 2018 Darren Comeau and other contributors under the [GNU GPLv3 License](LICENSE.txt).
