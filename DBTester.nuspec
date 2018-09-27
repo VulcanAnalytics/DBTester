@@ -2,12 +2,17 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
     <metadata>
 	    <id>VulcanAnalytics.DBTester</id>
-      <version>0.3.0.0000-alpha</version>
+      <version>0.3.0.0001-alpha</version>
       <authors>Edward Comeau</authors>
       <owners>Edward Comeau</owners>
       <title>Database Testing Library</title>
       <description>A number of simplified methods to check database objects and execute sql against an MSSQL database.</description>
       <tags>database testing mssql sql server</tags>
+      <projectUrl>https://github.com/VulcanAnalytics/DBTester/wiki</projectUrl>
+      <licenseUrl>https://github.com/VulcanAnalytics/DBTester/blob/master/LICENSE</licenseUrl>
+      <releaseNotes>Included NuGet tags and links to GitHub</releaseNotes>
+
+      <repository>https://github.com/VulcanAnalytics/DBTester.git</repository>
       
     <packageTypes>
         <packageType name="Dependency" />
