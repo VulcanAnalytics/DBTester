@@ -62,7 +62,7 @@ With this in place over the coming month or so (October 2018) - I would then be 
 First, [install NuGet](http://docs.nuget.org/docs/start-here/installing-nuget). Then, install [DBTester](https://www.nuget.org/packages/VulcanAnalytics.DBTester/) from the package manager console:
 
 ```
-PM> Install-Package DBTester
+PM> Install-Package VulcanAnalytics.DBTester
 ```
 
 ### Do you have an issue?
