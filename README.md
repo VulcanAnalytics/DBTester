@@ -52,6 +52,7 @@ A few of the key aspects to have in place are;
 * continuous integration and delivery
 * clear documentation on the wiki
 * NuGet packaging
+* Abstract class to support extensions for other databases/techniques
 
 Much of this is already in place via Microsoft DevOps (formally Visual Studio Team Services)
 
