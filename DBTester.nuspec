@@ -13,10 +13,7 @@
 
       <releaseNotes>Added method InsertData and linked to GitHub repository master branch</releaseNotes>
 
-      <repository>
-        <url>https://github.com/VulcanAnalytics/DBTester.git</url>
-        <branch>master</branch>
-      </repository>
+      <repository type="git" url="https://github.com/VulcanAnalytics/DBTester.git" />
       
     <packageTypes>
         <packageType name="Dependency" />
