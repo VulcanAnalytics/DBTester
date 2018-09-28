@@ -9,6 +9,10 @@ namespace VulcanAnalytics.DBTester.dbSpecflow_tests
     [TestClass]
     public class DatabaseTesterTests
     {
+        private const string connection = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=tempdb;Integrated Security=True;Persist Security Info=False;Pooling=False;MultipleActiveResultSets=False;Connect Timeout=60;Encrypt=False;TrustServerCertificate=True";
+
+        private DatabaseTester mssqlTester = new DBTester.MsSqlDatabaseTester(connection);
+
         const string unavailableConnString = @"Data Source=(localdb)\blah;Initial Catalog=foobar;Integrated Security=True;Persist Security Info=False;Pooling=False;MultipleActiveResultSets=False;Connect Timeout=60;Encrypt=False;TrustServerCertificate=True";
         const string availableConnString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=tempdb;Integrated Security=True;Persist Security Info=False;Pooling=False;MultipleActiveResultSets=False;Connect Timeout=60;Encrypt=False;TrustServerCertificate=True";
 
@@ -25,7 +29,7 @@ namespace VulcanAnalytics.DBTester.dbSpecflow_tests
         {
             try
             {
-                var tester = new DatabaseTester(availableConnString);
+                var tester = new DBTester.MsSqlDatabaseTester(availableConnString);
             }
             catch { }
         }
@@ -35,7 +39,7 @@ namespace VulcanAnalytics.DBTester.dbSpecflow_tests
         {
             try
             {
-                var tester = new DatabaseTester("not a connection string");
+                var tester = new DBTester.MsSqlDatabaseTester("not a connection string");
 
                 Assert.Fail();
             }
@@ -54,7 +58,7 @@ namespace VulcanAnalytics.DBTester.dbSpecflow_tests
         {
             try
             {
-                var tester = new DatabaseTester(unavailableConnString);
+                var tester = new DBTester.MsSqlDatabaseTester(unavailableConnString);
 
                 Assert.Fail();
             }
@@ -85,7 +89,7 @@ namespace VulcanAnalytics.DBTester.dbSpecflow_tests
         [TestMethod]
         public void MethodHasTableReturnsTrueWhenTableExists()
         {
-            var tester = new DatabaseTester(availableConnString);
+            var tester = new DBTester.MsSqlDatabaseTester(availableConnString);
             tester.ExecuteStatementWithoutResult("drop table if exists [dbo].[testtable];");
             tester.ExecuteStatementWithoutResult("create table [dbo].[testtable]([col1] int);");
 
@@ -97,7 +101,7 @@ namespace VulcanAnalytics.DBTester.dbSpecflow_tests
         [TestMethod]
         public void MethodHasTableReturnsFalseWhenTableDoesntExist()
         {
-            var tester = new DatabaseTester(availableConnString);
+            var tester = new DBTester.MsSqlDatabaseTester(availableConnString);
             tester.ExecuteStatementWithoutResult("drop table if exists [dbo].[notable]");
 
             var hasTable = tester.HasTable("dbo", "notable");
@@ -124,7 +128,7 @@ namespace VulcanAnalytics.DBTester.dbSpecflow_tests
         {
             var connectionstring = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=tempdb;Integrated Security=SSPI;";
 
-            var dbTester = new DatabaseTester(connectionstring);
+            var dbTester = new DBTester.MsSqlDatabaseTester(connectionstring);
 
             Assert.IsTrue(dbTester.HasSchema("dbo"));
         }
@@ -161,7 +165,7 @@ namespace VulcanAnalytics.DBTester.dbSpecflow_tests
         public void RowCountReturnsNumberOfRowsFromTable()
         {
             var expectedCount = 5;
-            var tester = new DatabaseTester(availableConnString);
+            var tester = new DBTester.MsSqlDatabaseTester(availableConnString);
             tester.ExecuteStatementWithoutResult("drop table if exists [dbo].[testtable];");
             tester.ExecuteStatementWithoutResult("create table [dbo].[testtable]([col1] int);");
             var i = 0;
@@ -180,7 +184,7 @@ namespace VulcanAnalytics.DBTester.dbSpecflow_tests
         public void RowCountReturnsNumberOfRowsFromView()
         {
             var expectedCount = 5;
-            var tester = new DatabaseTester(availableConnString);
+            var tester = new DBTester.MsSqlDatabaseTester(availableConnString);
             tester.ExecuteStatementWithoutResult("drop table if exists [dbo].[testtable];");
             tester.ExecuteStatementWithoutResult("create table [dbo].[testtable]([col1] int);");
             var i = 0;
@@ -216,7 +220,7 @@ namespace VulcanAnalytics.DBTester.dbSpecflow_tests
         {
             var expectedCount = 1;
             var connectionstring = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=tempdb;Integrated Security=SSPI;";
-            var tester = new DatabaseTester(connectionstring);
+            var tester = new DBTester.MsSqlDatabaseTester(connectionstring);
             tester.ExecuteStatementWithoutResult("drop table if exists [dbo].[testtable];");
             tester.ExecuteStatementWithoutResult("create table [dbo].[testtable]([col1] int);");
             var schemaName = "dbo";
@@ -240,7 +244,7 @@ namespace VulcanAnalytics.DBTester.dbSpecflow_tests
         {
             var expectedCount = 2;
             var connectionstring = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=tempdb;Integrated Security=SSPI;";
-            var tester = new DatabaseTester(connectionstring);
+            var tester = new DBTester.MsSqlDatabaseTester(connectionstring);
             tester.ExecuteStatementWithoutResult("drop table if exists [dbo].[testtable];");
             tester.ExecuteStatementWithoutResult("create table [dbo].[testtable]([col1] int);");
             var schemaName = "dbo";
@@ -265,7 +269,7 @@ namespace VulcanAnalytics.DBTester.dbSpecflow_tests
         {
             var expectedCount = 2;
             var connectionstring = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=tempdb;Integrated Security=SSPI;";
-            var tester = new DatabaseTester(connectionstring);
+            var tester = new DBTester.MsSqlDatabaseTester(connectionstring);
             tester.ExecuteStatementWithoutResult("drop table if exists [dbo].[testtable];");
             tester.ExecuteStatementWithoutResult("create table [dbo].[testtable]([col1] varchar(200));");
             var schemaName = "dbo";
@@ -290,7 +294,7 @@ namespace VulcanAnalytics.DBTester.dbSpecflow_tests
         {
             var expectedCount = 2;
             var connectionstring = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=tempdb;Integrated Security=SSPI;";
-            var tester = new DatabaseTester(connectionstring);
+            var tester = new DBTester.MsSqlDatabaseTester(connectionstring);
             tester.ExecuteStatementWithoutResult("drop table if exists [dbo].[testtable];");
             tester.ExecuteStatementWithoutResult("create table [dbo].[testtable]([col1] varchar(200) not null, [col2] varchar(200) not null);");
             var schemaName = "dbo";

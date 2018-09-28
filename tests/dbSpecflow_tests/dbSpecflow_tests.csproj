@@ -171,6 +171,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MsSqlDatabaseTester\HasSchema_Tests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DatabaseTesterTests.cs" />
   </ItemGroup>

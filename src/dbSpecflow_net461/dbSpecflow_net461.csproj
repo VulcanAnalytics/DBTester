@@ -153,6 +153,7 @@
   <ItemGroup>
     <Compile Include="DatabaseTester.cs" />
     <Compile Include="Exceptions\DatabaseTesterConnectionException.cs" />
+    <Compile Include="MsSqlDatabaseTester.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

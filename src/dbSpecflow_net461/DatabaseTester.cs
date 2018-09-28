@@ -6,13 +6,13 @@ using VulcanAnalytics.DBTester.Exceptions;
 
 namespace VulcanAnalytics.DBTester
 {
-    public class DatabaseTester
+    public abstract class DatabaseTester
     {
         private string defaultSchema;
 
         private SqlConnection connection = new SqlConnection();
 
-        private Database database;
+        protected Database database;
 
         public DatabaseTester(string connectionString)
         {
@@ -45,10 +45,7 @@ namespace VulcanAnalytics.DBTester
         }
 
 
-        public bool HasSchema(string schemaName)
-        {
-            return database.Schemas.Contains(schemaName);
-        }
+        public abstract bool HasSchema(string schemaName);
 
         public bool HasTable(string tableName)
         {
