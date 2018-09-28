@@ -74,5 +74,38 @@ namespace VulcanAnalytics.DBTester
         {
             database.ExecuteNonQuery(sqlStatement);
         }
+
+        public void InsertData(string schemaName, string objectName, string[] columns, Object[] data)
+        {
+            string sqlTemplate = "insert into {0}.{1}({2}) values({3});";
+
+            string sqlColumns = string.Empty;
+            foreach (var s in columns)
+            {
+                sqlColumns += string.Format("{0},",s);
+            }
+            sqlColumns = sqlColumns.TrimEnd(',');
+
+            foreach (Object[] row in data)
+            {
+                string sqlValues = string.Empty;
+                foreach (var s in row)
+                {
+                    sqlValues += string.Format("'{0}',", s);
+                }
+                sqlValues = sqlValues.TrimEnd(',');
+
+                var sql = string.Format(sqlTemplate, schemaName, objectName, sqlColumns, sqlValues);
+
+                try
+                {
+                    this.ExecuteStatementWithoutResult(sql);
+                }
+                catch (Exception e)
+                {
+                    throw new Exception(String.Format("Error encountered executing the insert statement: {0}",sql), e);
+                }
+            }
+        }
     }
 }
