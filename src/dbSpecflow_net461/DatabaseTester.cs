@@ -53,10 +53,7 @@ namespace VulcanAnalytics.DBTester
 
         public abstract int RowCount(string schemaName, string objectName);
 
-        public void ExecuteStatementWithoutResult(string sqlStatement)
-        {
-            database.ExecuteNonQuery(sqlStatement);
-        }
+        public abstract void ExecuteStatementWithoutResult(string sqlStatement);
 
         public void InsertData(string schemaName, string objectName, string[] columns, Object[] data)
         {

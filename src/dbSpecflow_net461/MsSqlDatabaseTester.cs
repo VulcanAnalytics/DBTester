@@ -32,5 +32,10 @@
 
             return count;
         }
+
+        public override void ExecuteStatementWithoutResult(string sqlStatement)
+        {
+            database.ExecuteNonQuery(sqlStatement);
+        }
     }
 }
