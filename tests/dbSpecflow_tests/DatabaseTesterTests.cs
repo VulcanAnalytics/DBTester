@@ -73,7 +73,7 @@ namespace VulcanAnalytics.DBTester.dbSpecflow_tests
         }
 
         [TestMethod]
-        public void DatabasetesterHasMethodHasTable()
+        public void DatabaseTesterHasMethodHasTable()
         {
             var methodFound = false;
 
@@ -84,29 +84,6 @@ namespace VulcanAnalytics.DBTester.dbSpecflow_tests
             }
 
             Assert.IsTrue(methodFound, "Method of required name not found");
-        }
-
-        [TestMethod]
-        public void MethodHasTableReturnsTrueWhenTableExists()
-        {
-            var tester = new DBTester.MsSqlDatabaseTester(availableConnString);
-            tester.ExecuteStatementWithoutResult("drop table if exists [dbo].[testtable];");
-            tester.ExecuteStatementWithoutResult("create table [dbo].[testtable]([col1] int);");
-
-            var hasTable = tester.HasTable("dbo", "testtable");
-
-            Assert.IsTrue(hasTable);
-        }
-
-        [TestMethod]
-        public void MethodHasTableReturnsFalseWhenTableDoesntExist()
-        {
-            var tester = new DBTester.MsSqlDatabaseTester(availableConnString);
-            tester.ExecuteStatementWithoutResult("drop table if exists [dbo].[notable]");
-
-            var hasTable = tester.HasTable("dbo", "notable");
-
-            Assert.IsFalse(hasTable);
         }
 
         [TestMethod]
@@ -124,17 +101,7 @@ namespace VulcanAnalytics.DBTester.dbSpecflow_tests
         }
 
         [TestMethod]
-        public void DatabaseTesterHasSchemaDboReturnsTrue()
-        {
-            var connectionstring = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=tempdb;Integrated Security=SSPI;";
-
-            var dbTester = new DBTester.MsSqlDatabaseTester(connectionstring);
-
-            Assert.IsTrue(dbTester.HasSchema("dbo"));
-        }
-
-        [TestMethod]
-        public void DatabasetesterHasMethodExecuteStatementWithoutResult()
+        public void DatabaseTesterHasMethodExecuteStatementWithoutResult()
         {
             var methodFound = false;
 

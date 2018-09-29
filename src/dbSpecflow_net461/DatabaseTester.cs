@@ -8,7 +8,7 @@ namespace VulcanAnalytics.DBTester
 {
     public abstract class DatabaseTester
     {
-        private string defaultSchema;
+        protected string defaultSchema;
 
         private SqlConnection connection = new SqlConnection();
 
@@ -47,15 +47,9 @@ namespace VulcanAnalytics.DBTester
 
         public abstract bool HasSchema(string schemaName);
 
-        public bool HasTable(string tableName)
-        {
-            return HasTable(tableName, defaultSchema);
-        }
+        public abstract bool HasTable(string tableName);
 
-        public bool HasTable(string schemaName, string tableName)
-        {
-            return database.Tables.Contains(tableName, schemaName);
-        }
+        public abstract bool HasTable(string schemaName, string tableName);
 
         public int RowCount(string schemaName, string objectName)
         {
