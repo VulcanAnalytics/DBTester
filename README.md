@@ -16,7 +16,7 @@ using VulcanAnalytics.DBTester;
 
 ```csharp
 var connectionstring = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=tempdb;Integrated Security=True;Persist Security Info=False;Pooling=False;MultipleActiveResultSets=False;Connect Timeout=60;Encrypt=False;TrustServerCertificate=True";
-var tester = new DatabaseTester(connectionstring);
+DatabaseTester tester = new MsSqlDatabaseTester(connectionstring);
 ```
 
 Secondly, use one or more of the functions to interact with or check a condition from the database;
