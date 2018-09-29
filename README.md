@@ -37,6 +37,7 @@ This list of methods is small today, but increasing (as the database project I'm
 * HasTable
 * RowCount
 * ExecuteStatementWithoutResult
+* InsertData
 
 ### Where did this come from?
 
