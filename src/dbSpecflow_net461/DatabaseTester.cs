@@ -6,13 +6,13 @@ using VulcanAnalytics.DBTester.Exceptions;
 
 namespace VulcanAnalytics.DBTester
 {
-    public class DatabaseTester
+    public abstract class DatabaseTester
     {
-        private string defaultSchema;
+        protected string defaultSchema;
 
         private SqlConnection connection = new SqlConnection();
 
-        private Database database;
+        protected Database database;
 
         public DatabaseTester(string connectionString)
         {
@@ -45,36 +45,15 @@ namespace VulcanAnalytics.DBTester
         }
 
 
-        public bool HasSchema(string schemaName)
-        {
-            return database.Schemas.Contains(schemaName);
-        }
+        public abstract bool HasSchema(string schemaName);
 
-        public bool HasTable(string tableName)
-        {
-            return HasTable(tableName, defaultSchema);
-        }
+        public abstract bool HasTable(string tableName);
 
-        public bool HasTable(string schemaName, string tableName)
-        {
-            return database.Tables.Contains(tableName, schemaName);
-        }
+        public abstract bool HasTable(string schemaName, string tableName);
 
-        public int RowCount(string schemaName, string objectName)
-        {
-            var sqlStatement = string.Format("select count(*) from {0}.{1};",schemaName,objectName);
+        public abstract int RowCount(string schemaName, string objectName);
 
-            var results = database.ExecuteWithResults(sqlStatement);
-
-            var count = int.Parse(results.Tables[0].Rows[0][0].ToString());
-
-            return count;
-        }
-
-        public void ExecuteStatementWithoutResult(string sqlStatement)
-        {
-            database.ExecuteNonQuery(sqlStatement);
-        }
+        public abstract void ExecuteStatementWithoutResult(string sqlStatement);
 
         public void InsertData(string schemaName, string objectName, string[] columns, Object[] data)
         {
