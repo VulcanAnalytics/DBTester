@@ -11,18 +11,13 @@ namespace VulcanAnalytics.DBTester.dbSpecflow_tests.MsSqlDatabaseTester
 
         private const string schemaName = "dbo";
         private const string tableName = "testtable";
+        private const string viewName = "testview";
 
         [TestMethod]
         public void RowCountReturnsNumberOfRowsFromTable()
         {
             var expectedCount = 5;
-            DropAndCreateTable(schemaName, tableName);
-            var i = 0;
-            while (i < expectedCount)
-            {
-                tester.ExecuteStatementWithoutResult("insert into [dbo].[testtable]([col1]) values(99);");
-                i++;
-            }
+            CreateAndPopulateTable(schemaName, tableName, expectedCount);
 
             var actualCount = tester.RowCount(schemaName, tableName);
 
@@ -33,16 +28,8 @@ namespace VulcanAnalytics.DBTester.dbSpecflow_tests.MsSqlDatabaseTester
         public void RowCountReturnsNumberOfRowsFromView()
         {
             var expectedCount = 5;
-            var viewName = "testview";
-            DropAndCreateTable(schemaName, tableName);
-            var i = 0;
-            while (i < expectedCount)
-            {
-                tester.ExecuteStatementWithoutResult("insert into [dbo].[testtable]([col1]) values(99);");
-                i++;
-            }
-            DropView(schemaName, viewName);
-            tester.ExecuteStatementWithoutResult("create view [dbo].[testview] as select [col1] from [dbo].[testtable];");
+            CreateAndPopulateTable(schemaName, tableName, expectedCount);
+            DropAndCreateView(schemaName, tableName, viewName);
 
             var actualCount = tester.RowCount(schemaName, viewName);
 
@@ -51,10 +38,22 @@ namespace VulcanAnalytics.DBTester.dbSpecflow_tests.MsSqlDatabaseTester
 
         #region Private Methods
 
+        private void CreateAndPopulateTable(string schemaName, string tableName, int rowCount)
+        {
+            DropAndCreateTable(schemaName, tableName);
+            InsertTestRows(schemaName, tableName, rowCount);
+        }
+
         private void DropAndCreateTable(string schemaName, string tableName)
         {
             DropTable(schemaName, tableName);
             CreateTable(schemaName, tableName);
+        }
+
+        private void DropAndCreateView(string schemaName, string tableName, string viewName)
+        {
+            DropView(schemaName, viewName);
+            CreateView(schemaName, tableName, viewName);
         }
 
         private void DropTable(string schemaName, string tableName)
@@ -73,9 +72,27 @@ namespace VulcanAnalytics.DBTester.dbSpecflow_tests.MsSqlDatabaseTester
 
         private void CreateTable(string schemaName, string tableName)
         {
-            var sql = CreateTestTable(schemaName, tableName);
+            var sql = CreateTestTableSql(schemaName, tableName);
 
             tester.ExecuteStatementWithoutResult(sql);
+        }
+
+        private void CreateView(string schemaName, string tableName, string viewName)
+        {
+            var sql = CreateTestViewSql(schemaName, tableName, viewName);
+
+            tester.ExecuteStatementWithoutResult(sql);
+        }
+
+        private void InsertTestRows(string schemaName, string tableName, int rowCount)
+        {
+            var sql = InsertTestRowSql(schemaName, tableName);
+            var i = 0;
+            while (i < rowCount)
+            {
+                tester.ExecuteStatementWithoutResult(sql);
+                i++;
+            }
         }
 
         private string DropTableSql(string schemaName, string tableName)
@@ -96,9 +113,27 @@ namespace VulcanAnalytics.DBTester.dbSpecflow_tests.MsSqlDatabaseTester
             return sql;
         }
 
-        private string CreateTestTable(string schemaName, string tableName)
+        private string CreateTestTableSql(string schemaName, string tableName)
         {
             var template = "create table {0}.{1}([col1] int);";
+
+            var sql = string.Format(template, schemaName, tableName);
+
+            return sql;
+        }
+
+        private string CreateTestViewSql(string schemaName, string tableName, string viewName)
+        {
+            var template = "create view {0}.{1} as select [col1] from {0}.{2};";
+
+            var sql = string.Format(template, schemaName, viewName, tableName);
+
+            return sql;
+        }
+
+        private string InsertTestRowSql(string schemaName, string tableName)
+        {
+            var template = "insert into {0}.{1}([col1]) values(99);";
 
             var sql = string.Format(template, schemaName, tableName);
 
