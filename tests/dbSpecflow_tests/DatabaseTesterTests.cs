@@ -25,7 +25,7 @@ namespace VulcanAnalytics.DBTester.dbSpecflow_tests
         }
 
         [TestMethod]
-        public void DatabaseTesterConstructorString()
+        public void ConstructorString()
         {
             try
             {
@@ -35,7 +35,7 @@ namespace VulcanAnalytics.DBTester.dbSpecflow_tests
         }
 
         [TestMethod]
-        public void DatabaseTesterConstructorRejectsInvalidConnectionString()
+        public void ConstructorRejectsInvalidConnectionString()
         {
             try
             {
@@ -54,7 +54,7 @@ namespace VulcanAnalytics.DBTester.dbSpecflow_tests
         }
 
         [TestMethod]
-        public void DatabaseTesterConstructorRejectsUnavailableConnection()
+        public void ConstructorRejectsUnavailableConnection()
         {
             try
             {
@@ -73,7 +73,7 @@ namespace VulcanAnalytics.DBTester.dbSpecflow_tests
         }
 
         [TestMethod]
-        public void DatabaseTesterHasMethodHasTable()
+        public void HasMethodHasTable()
         {
             var methodFound = false;
 
@@ -101,7 +101,7 @@ namespace VulcanAnalytics.DBTester.dbSpecflow_tests
         }
 
         [TestMethod]
-        public void DatabaseTesterHasMethodExecuteStatementWithoutResult()
+        public void HasMethodExecuteStatementWithoutResult()
         {
             var methodFound = false;
 
@@ -115,7 +115,7 @@ namespace VulcanAnalytics.DBTester.dbSpecflow_tests
         }
                
         [TestMethod]
-        public void DatabasetesterHasMethodRowCount()
+        public void HasMethodRowCount()
         {
             var methodFound = false;
 
@@ -126,46 +126,6 @@ namespace VulcanAnalytics.DBTester.dbSpecflow_tests
             }
 
             Assert.IsTrue(methodFound, "Method of required name not found");
-        }
-
-        [TestMethod]
-        public void RowCountReturnsNumberOfRowsFromTable()
-        {
-            var expectedCount = 5;
-            var tester = new DBTester.MsSqlDatabaseTester(availableConnString);
-            tester.ExecuteStatementWithoutResult("drop table if exists [dbo].[testtable];");
-            tester.ExecuteStatementWithoutResult("create table [dbo].[testtable]([col1] int);");
-            var i = 0;
-            while (i < expectedCount)
-            {
-                tester.ExecuteStatementWithoutResult("insert into [dbo].[testtable]([col1]) values(99);");
-                i++;
-            }
-
-            var actualCount = tester.RowCount("dbo", "testtable");
-
-            Assert.AreEqual(expectedCount,actualCount);
-        }
-
-        [TestMethod]
-        public void RowCountReturnsNumberOfRowsFromView()
-        {
-            var expectedCount = 5;
-            var tester = new DBTester.MsSqlDatabaseTester(availableConnString);
-            tester.ExecuteStatementWithoutResult("drop table if exists [dbo].[testtable];");
-            tester.ExecuteStatementWithoutResult("create table [dbo].[testtable]([col1] int);");
-            var i = 0;
-            while (i < expectedCount)
-            {
-                tester.ExecuteStatementWithoutResult("insert into [dbo].[testtable]([col1]) values(99);");
-                i++;
-            }
-            tester.ExecuteStatementWithoutResult("drop view if exists [dbo].[testview];");
-            tester.ExecuteStatementWithoutResult("create view [dbo].[testview] as select [col1] from [dbo].[testtable];");
-
-            var actualCount = tester.RowCount("dbo", "testview");
-
-            Assert.AreEqual(expectedCount, actualCount);
         }
 
         [TestMethod]
