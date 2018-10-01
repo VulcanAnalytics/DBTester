@@ -24,7 +24,6 @@ namespace VulcanAnalytics.DBTester
                 // Reset timeout to 2 seconds for faster test results
                 var builder = new SqlConnectionStringBuilder();
                 builder.ConnectionString = connectionString;
-                builder.ConnectTimeout = 2;
 
                 connection.ConnectionString = builder.ConnectionString;
 
