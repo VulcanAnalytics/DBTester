@@ -1,0 +1,117 @@
+resources:
+
+- repo: self
+
+queue:
+
+  name: Hosted VS2017
+
+  demands: 
+
+  - msbuild
+
+  - visualstudio
+
+  - vstest
+
+
+
+steps:
+
+- task: NuGetCommand@2
+
+  displayName: 'NuGet restore'
+
+
+
+
+
+- task: VSBuild@1
+
+  displayName: 'Build solution **\*.sln'
+
+  inputs:
+
+    platform: x86
+
+
+
+    configuration: Release
+
+
+
+
+
+- task: VSTest@2
+
+  displayName: 'VsTest - testAssemblies'
+
+
+
+
+
+- task: CopyFiles@2
+
+  displayName: 'Copy Files to: $(build.artifactstagingdirectory)/lib/net461'
+
+  inputs:
+
+    SourceFolder: 'src/dbSpecflow_net461/bin/x86/Release'
+
+
+
+    Contents: 'VulcanAnalytics.DBTester.*'
+
+
+
+    TargetFolder: '$(build.artifactstagingdirectory)/lib/net461/'
+
+
+
+
+
+- task: CopyFiles@2
+
+  displayName: 'Copy Files to: $(build.artifactstagingdirectory)'
+
+  inputs:
+
+    Contents: '**\*.nuspec'
+
+
+
+    TargetFolder: '$(build.artifactstagingdirectory)'
+
+
+
+
+
+- task: NuGetCommand@2
+
+  displayName: 'NuGet pack'
+
+  inputs:
+
+    command: pack
+
+
+
+    packagesToPack: '$(build.artifactstagingdirectory)\*.nuspec'
+
+
+
+
+
+- task: PublishBuildArtifacts@1
+
+  displayName: 'Publish Artifact: DBTester Package'
+
+  inputs:
+
+    ArtifactName: 'DBTester Package'
+
+
+
+
+
+
