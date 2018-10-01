@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
     <metadata>
 	    <id>VulcanAnalytics.DBTester</id>
-      <version>0.5.0.0001-alpha</version>
+      <version>0.5.1.0000-alpha</version>
       <authors>Darren Edward Comeau</authors>
       <owners>Darren Edward Comeau</owners>
       <title>Database Testing Library</title>
@@ -12,7 +12,7 @@
       <licenseUrl>https://github.com/VulcanAnalytics/DBTester/blob/master/LICENSE</licenseUrl>
 
       <releaseNotes>
-        Included Continuous Integration definition file in source code.
+        Remove two second timeout on database connections, use timeout value specified in connection strings.
       </releaseNotes>
 
       <repository type="git" url="https://github.com/VulcanAnalytics/DBTester.git" />
