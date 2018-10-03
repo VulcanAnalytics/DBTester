@@ -1,11 +1,11 @@
 ﻿using System;
+using System.Data;
 
 namespace VulcanAnalytics.DBTester
 {
     public abstract class DatabaseTester
     {
         protected string defaultSchema;
-
 
         public abstract bool HasSchema(string schemaName);
 
@@ -16,6 +16,8 @@ namespace VulcanAnalytics.DBTester
         public abstract int RowCount(string schemaName, string objectName);
 
         public abstract void ExecuteStatementWithoutResult(string sqlStatement);
+
+        public abstract DataSet ExecuteStatementWithResult(string sqlStatement);
 
         public void InsertData(string schemaName, string objectName, string[] columns, Object[] data)
         {

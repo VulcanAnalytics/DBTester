@@ -1,6 +1,7 @@
 ﻿using Microsoft.SqlServer.Management.Common;
 using Microsoft.SqlServer.Management.Smo;
 using System;
+using System.Data;
 using System.Data.SqlClient;
 using VulcanAnalytics.DBTester.Exceptions;
 
@@ -69,6 +70,11 @@ namespace VulcanAnalytics.DBTester
         public override void ExecuteStatementWithoutResult(string sqlStatement)
         {
             database.ExecuteNonQuery(sqlStatement);
+        }
+
+        public override DataSet ExecuteStatementWithResult(string sqlStatement)
+        {
+            return database.ExecuteWithResults(sqlStatement);
         }
     }
 }

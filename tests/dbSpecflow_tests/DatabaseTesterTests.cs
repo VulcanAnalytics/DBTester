@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Reflection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -19,15 +20,11 @@ namespace VulcanAnalytics.DBTester.dbSpecflow_tests
         [TestMethod]
         public void HasMethodHasTable()
         {
-            var methodFound = false;
+            var methodName = "HasTable";
 
-            var methods = GetMethods(databasetesterType, "HasTable");
-            if (methods.Length > 0)
-            {
-                methodFound = true;
-            }
+            var hasMethod = HasMethod(databasetesterType, methodName);
 
-            Assert.IsTrue(methodFound, "Method of required name not found");
+            Assert.IsTrue(hasMethod, "Method of required name not found");
         }
 
         [TestMethod]
@@ -47,43 +44,55 @@ namespace VulcanAnalytics.DBTester.dbSpecflow_tests
         [TestMethod]
         public void HasMethodExecuteStatementWithoutResult()
         {
-            var methodFound = false;
+            var methodName = "ExecuteStatementWithoutResult";
 
-            var methods = GetMethods(databasetesterType, "ExecuteStatementWithoutResult");
+            var hasMethod = HasMethod(databasetesterType, methodName);
+
+            Assert.IsTrue(hasMethod, "Method of required name not found");
+        }
+
+        [TestMethod]
+        public void HasMethodExecuteStatementWithResult()
+        {
+            var methodName = "ExecuteStatementWithResult";
+
+            var hasMethod = HasMethod(databasetesterType, methodName);
+
+            Assert.IsTrue(hasMethod, "Method of required name not found");
+        }
+
+        [TestMethod]
+        public void ExecuteStatementWithResultReturnsDataSet()
+        {
+            Type returnType = null;
+
+            var methods = GetMethods(databasetesterType, "ExecuteStatementWithResult");
             if (methods.Length > 0)
             {
-                methodFound = true;
+                returnType = methods[0].ReturnType;
             }
 
-            Assert.IsTrue(methodFound, "Method of required name not found");
+            Assert.AreEqual(typeof(DataSet), returnType, "HasTable method doesn't return the correct type");
         }
-               
+
         [TestMethod]
         public void HasMethodRowCount()
         {
-            var methodFound = false;
+            var methodName = "RowCount";
 
-            var methods = GetMethods(databasetesterType, "RowCount");
-            if (methods.Length > 0)
-            {
-                methodFound = true;
-            }
+            var hasMethod = HasMethod(databasetesterType, methodName);
 
-            Assert.IsTrue(methodFound, "Method of required name not found");
+            Assert.IsTrue(hasMethod, "Method of required name not found");
         }
 
         [TestMethod]
         public void HasMethodInsertData()
         {
-            var methodFound = false;
+            var methodName = "InsertData";
 
-            var methods = GetMethods(databasetesterType, "InsertData");
-            if (methods.Length > 0)
-            {
-                methodFound = true;
-            }
+            var hasMethod = HasMethod(databasetesterType, methodName);
 
-            Assert.IsTrue(methodFound, "Method of required name not found");
+            Assert.IsTrue(hasMethod, "Method of required name not found");
         }
 
         [TestMethod]
@@ -210,6 +219,19 @@ namespace VulcanAnalytics.DBTester.dbSpecflow_tests
             Assert.AreEqual(expectedCount, actualCount);
         }
 
+        #region Private Methods
+        private bool HasMethod(Type type, string methodName)
+        {
+            var hasMethod = false;
+
+            var methods = GetMethods(type, methodName);
+            if (methods.Length > 0)
+            {
+                hasMethod = true;
+            }
+            return hasMethod;
+        }
+
         private MethodInfo[] GetMethods(Type type,string name)
         {
             List<MethodInfo> methods = new List<MethodInfo>();
@@ -226,5 +248,6 @@ namespace VulcanAnalytics.DBTester.dbSpecflow_tests
             return methods.ToArray();
 
         }
+        #endregion
     }
 }
