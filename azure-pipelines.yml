@@ -42,7 +42,7 @@ steps:
 
 
 - script: |
-   SqlLocalDB.exe create "(localdb)\MSSQLLocalDB" -s
+   SqlLocalDB.exe create "MSSQLLocalDB" -s
 
   failOnStderr: true
 
