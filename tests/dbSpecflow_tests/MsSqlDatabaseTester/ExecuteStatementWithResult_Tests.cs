@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using VulcanAnalytics.DBTester.Exceptions;
 
 namespace VulcanAnalytics.DBTester.dbSpecflow_tests.MsSqlDatabaseTester
 {
@@ -44,6 +45,16 @@ namespace VulcanAnalytics.DBTester.dbSpecflow_tests.MsSqlDatabaseTester
 
             var actualText = results.Tables[0].Rows[0]["Text"];
             Assert.AreEqual(expectedText, actualText);
+        }
+
+
+        [TestMethod]
+        [ExpectedException(typeof(StatementReturnedNoTables))]
+        public void ThrowsNoResultsExpection()
+        {
+            var sql = "declare @date datetime = getdate();";
+
+            var results = tester.ExecuteStatementWithResult(sql);
         }
     }
 }

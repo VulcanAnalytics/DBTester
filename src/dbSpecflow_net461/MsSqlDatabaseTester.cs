@@ -74,7 +74,13 @@ namespace VulcanAnalytics.DBTester
 
         public override DataSet ExecuteStatementWithResult(string sqlStatement)
         {
-            return database.ExecuteWithResults(sqlStatement);
+            var results = database.ExecuteWithResults(sqlStatement);
+            if (results.Tables.Count == 0)
+            {
+                var errorMessage = string.Format("The following statement didn't return any tables: {0}", sqlStatement);
+                throw new StatementReturnedNoTables(errorMessage);
+            }
+            return results;
         }
     }
 }

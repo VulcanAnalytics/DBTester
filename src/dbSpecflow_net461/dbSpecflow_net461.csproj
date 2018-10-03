@@ -152,6 +152,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DatabaseTester.cs" />
+    <Compile Include="Exceptions\StatementReturnedNoTables.cs" />
     <Compile Include="Exceptions\FailedDatabaseConnection.cs" />
     <Compile Include="MsSqlDatabaseTester.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
