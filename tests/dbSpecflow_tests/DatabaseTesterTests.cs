@@ -49,7 +49,7 @@ namespace VulcanAnalytics.DBTester.dbSpecflow_tests
             }
             catch (Exception e)
             {
-                Assert.IsInstanceOfType(e, typeof(DatabaseTesterConnectionException));
+                Assert.IsInstanceOfType(e, typeof(FailedDatabaseConnection));
             }
         }
 
@@ -68,7 +68,7 @@ namespace VulcanAnalytics.DBTester.dbSpecflow_tests
             }
             catch (Exception e)
             {
-                Assert.IsInstanceOfType(e, typeof(DatabaseTesterConnectionException));
+                Assert.IsInstanceOfType(e, typeof(FailedDatabaseConnection));
             }
         }
 
