@@ -36,8 +36,9 @@ This list of methods is small today, but increasing (as the database project I'm
 * HasSchema
 * HasTable
 * RowCount
-* ExecuteStatementWithoutResult
 * InsertData
+* ExecuteStatementWithoutResult
+* ExecuteStatementWithResult
 
 ### Where did this come from?
 

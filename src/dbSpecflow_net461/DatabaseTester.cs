@@ -1,48 +1,11 @@
-﻿using Microsoft.SqlServer.Management.Common;
-using Microsoft.SqlServer.Management.Smo;
-using System;
-using System.Data.SqlClient;
-using VulcanAnalytics.DBTester.Exceptions;
+﻿using System;
+using System.Data;
 
 namespace VulcanAnalytics.DBTester
 {
     public abstract class DatabaseTester
     {
         protected string defaultSchema;
-
-        private SqlConnection connection = new SqlConnection();
-
-        protected Database database;
-
-        public DatabaseTester(string connectionString)
-        {
-            defaultSchema = "dbo";
-            Server dbServer;
-
-            try
-            {
-                // Reset timeout to 2 seconds for faster test results
-                var builder = new SqlConnectionStringBuilder();
-                builder.ConnectionString = connectionString;
-
-                connection.ConnectionString = builder.ConnectionString;
-
-                ServerConnection conn = new ServerConnection(connection);
-
-                dbServer = new Server(conn);
-                var c = dbServer.Databases.Count;
-            }
-            catch (Exception e)
-            {
-                var newerror = new DatabaseTesterConnectionException("There was a problem with your connection string", e);
-                throw newerror;
-            }
-
-            var connectionDatabase = connection.Database;
-
-            this.database = dbServer.Databases[connectionDatabase];
-        }
-
 
         public abstract bool HasSchema(string schemaName);
 
@@ -53,6 +16,8 @@ namespace VulcanAnalytics.DBTester
         public abstract int RowCount(string schemaName, string objectName);
 
         public abstract void ExecuteStatementWithoutResult(string sqlStatement);
+
+        public abstract DataSet ExecuteStatementWithResult(string sqlStatement);
 
         public void InsertData(string schemaName, string objectName, string[] columns, Object[] data)
         {

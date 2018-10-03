@@ -1,20 +1,54 @@
-﻿namespace VulcanAnalytics.DBTester
+﻿using Microsoft.SqlServer.Management.Common;
+using Microsoft.SqlServer.Management.Smo;
+using System;
+using System.Data;
+using System.Data.SqlClient;
+using VulcanAnalytics.DBTester.Exceptions;
+
+namespace VulcanAnalytics.DBTester
 {
     public class MsSqlDatabaseTester : DatabaseTester
     {
-        public MsSqlDatabaseTester(string connectionString) : base(connectionString)
-        {
+        private SqlConnection connection = new SqlConnection();
 
+        private Database database;
+
+        public MsSqlDatabaseTester(string connectionString) : base()
+        {
+            defaultSchema = "dbo";
+            Server dbServer;
+
+            try
+            {
+                var builder = new SqlConnectionStringBuilder();
+                builder.ConnectionString = connectionString;
+
+                connection.ConnectionString = builder.ConnectionString;
+
+                ServerConnection conn = new ServerConnection(connection);
+
+                dbServer = new Server(conn);
+                var c = dbServer.Databases.Count;
+            }
+            catch (Exception e)
+            {
+                var newerror = new FailedDatabaseConnection("There was a problem with your connection string", e);
+                throw newerror;
+            }
+
+            var connectionDatabase = connection.Database;
+
+            this.database = dbServer.Databases[connectionDatabase];
         }
-        
+
         public override bool HasSchema(string schemaName)
         {
-            return base.database.Schemas.Contains(schemaName);
+            return this.database.Schemas.Contains(schemaName);
         }
 
         public override bool HasTable(string schemaName, string tableName)
         {
-            return base.database.Tables.Contains(tableName, schemaName);
+            return this.database.Tables.Contains(tableName, schemaName);
         }
 
         public override bool HasTable(string tableName)
@@ -36,6 +70,17 @@
         public override void ExecuteStatementWithoutResult(string sqlStatement)
         {
             database.ExecuteNonQuery(sqlStatement);
+        }
+
+        public override DataSet ExecuteStatementWithResult(string sqlStatement)
+        {
+            var results = database.ExecuteWithResults(sqlStatement);
+            if (results.Tables.Count == 0)
+            {
+                var errorMessage = string.Format("The following statement didn't return any tables: {0}", sqlStatement);
+                throw new StatementReturnedNoTables(errorMessage);
+            }
+            return results;
         }
     }
 }

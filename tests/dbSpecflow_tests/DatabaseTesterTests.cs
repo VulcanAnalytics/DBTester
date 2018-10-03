@@ -1,21 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Reflection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using VulcanAnalytics.DBTester.Exceptions;
 
 namespace VulcanAnalytics.DBTester.dbSpecflow_tests
 {
     [TestClass]
     public class DatabaseTesterTests
     {
-        private const string connection = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=tempdb;Integrated Security=True;Persist Security Info=False;Pooling=False;MultipleActiveResultSets=False;Connect Timeout=60;Encrypt=False;TrustServerCertificate=True";
-
-        private DatabaseTester mssqlTester = new DBTester.MsSqlDatabaseTester(connection);
-
-        const string unavailableConnString = @"Data Source=(localdb)\blah;Initial Catalog=foobar;Integrated Security=True;Persist Security Info=False;Pooling=False;MultipleActiveResultSets=False;Connect Timeout=1;Encrypt=False;TrustServerCertificate=True";
-        const string availableConnString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=tempdb;Integrated Security=True;Persist Security Info=False;Pooling=False;MultipleActiveResultSets=False;Connect Timeout=60;Encrypt=False;TrustServerCertificate=True";
-
         private Type databasetesterType = typeof(DatabaseTester);
 
         [TestMethod]
@@ -25,65 +18,13 @@ namespace VulcanAnalytics.DBTester.dbSpecflow_tests
         }
 
         [TestMethod]
-        public void ConstructorString()
-        {
-            try
-            {
-                var tester = new DBTester.MsSqlDatabaseTester(availableConnString);
-            }
-            catch { }
-        }
-
-        [TestMethod]
-        public void ConstructorRejectsInvalidConnectionString()
-        {
-            try
-            {
-                var tester = new DBTester.MsSqlDatabaseTester("not a connection string");
-
-                Assert.Fail();
-            }
-            catch (AssertFailedException)
-            {
-                Assert.Fail("Invalid connection string accepted");
-            }
-            catch (Exception e)
-            {
-                Assert.IsInstanceOfType(e, typeof(DatabaseTesterConnectionException));
-            }
-        }
-
-        [TestMethod]
-        public void ConstructorRejectsUnavailableConnection()
-        {
-            try
-            {
-                var tester = new DBTester.MsSqlDatabaseTester(unavailableConnString);
-
-                Assert.Fail();
-            }
-            catch (AssertFailedException)
-            {
-                Assert.Fail("Unavailable connection string accepted");
-            }
-            catch (Exception e)
-            {
-                Assert.IsInstanceOfType(e, typeof(DatabaseTesterConnectionException));
-            }
-        }
-
-        [TestMethod]
         public void HasMethodHasTable()
         {
-            var methodFound = false;
+            var methodName = "HasTable";
 
-            var methods = GetMethods(databasetesterType, "HasTable");
-            if (methods.Length > 0)
-            {
-                methodFound = true;
-            }
+            var hasMethod = HasMethod(databasetesterType, methodName);
 
-            Assert.IsTrue(methodFound, "Method of required name not found");
+            Assert.IsTrue(hasMethod, "Method of required name not found");
         }
 
         [TestMethod]
@@ -103,43 +44,55 @@ namespace VulcanAnalytics.DBTester.dbSpecflow_tests
         [TestMethod]
         public void HasMethodExecuteStatementWithoutResult()
         {
-            var methodFound = false;
+            var methodName = "ExecuteStatementWithoutResult";
 
-            var methods = GetMethods(databasetesterType, "ExecuteStatementWithoutResult");
+            var hasMethod = HasMethod(databasetesterType, methodName);
+
+            Assert.IsTrue(hasMethod, "Method of required name not found");
+        }
+
+        [TestMethod]
+        public void HasMethodExecuteStatementWithResult()
+        {
+            var methodName = "ExecuteStatementWithResult";
+
+            var hasMethod = HasMethod(databasetesterType, methodName);
+
+            Assert.IsTrue(hasMethod, "Method of required name not found");
+        }
+
+        [TestMethod]
+        public void ExecuteStatementWithResultReturnsDataSet()
+        {
+            Type returnType = null;
+
+            var methods = GetMethods(databasetesterType, "ExecuteStatementWithResult");
             if (methods.Length > 0)
             {
-                methodFound = true;
+                returnType = methods[0].ReturnType;
             }
 
-            Assert.IsTrue(methodFound, "Method of required name not found");
+            Assert.AreEqual(typeof(DataSet), returnType, "HasTable method doesn't return the correct type");
         }
-               
+
         [TestMethod]
         public void HasMethodRowCount()
         {
-            var methodFound = false;
+            var methodName = "RowCount";
 
-            var methods = GetMethods(databasetesterType, "RowCount");
-            if (methods.Length > 0)
-            {
-                methodFound = true;
-            }
+            var hasMethod = HasMethod(databasetesterType, methodName);
 
-            Assert.IsTrue(methodFound, "Method of required name not found");
+            Assert.IsTrue(hasMethod, "Method of required name not found");
         }
 
         [TestMethod]
         public void HasMethodInsertData()
         {
-            var methodFound = false;
+            var methodName = "InsertData";
 
-            var methods = GetMethods(databasetesterType, "InsertData");
-            if (methods.Length > 0)
-            {
-                methodFound = true;
-            }
+            var hasMethod = HasMethod(databasetesterType, methodName);
 
-            Assert.IsTrue(methodFound, "Method of required name not found");
+            Assert.IsTrue(hasMethod, "Method of required name not found");
         }
 
         [TestMethod]
@@ -266,6 +219,19 @@ namespace VulcanAnalytics.DBTester.dbSpecflow_tests
             Assert.AreEqual(expectedCount, actualCount);
         }
 
+        #region Private Methods
+        private bool HasMethod(Type type, string methodName)
+        {
+            var hasMethod = false;
+
+            var methods = GetMethods(type, methodName);
+            if (methods.Length > 0)
+            {
+                hasMethod = true;
+            }
+            return hasMethod;
+        }
+
         private MethodInfo[] GetMethods(Type type,string name)
         {
             List<MethodInfo> methods = new List<MethodInfo>();
@@ -282,5 +248,6 @@ namespace VulcanAnalytics.DBTester.dbSpecflow_tests
             return methods.ToArray();
 
         }
+        #endregion
     }
 }
