@@ -41,6 +41,18 @@ steps:
 
 
 
+- script: |
+   SqlLocalDB.exe create "(localdb)\MSSQLLocalDB" -s
+
+  failOnStderr: true
+
+
+
+  displayName: 'Create Test Database'
+
+
+
+
 
 - task: VSTest@2
 
