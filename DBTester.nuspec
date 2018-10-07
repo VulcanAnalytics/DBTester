@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
     <metadata>
 	    <id>VulcanAnalytics.DBTester</id>
-      <version>0.6.1.0000-alpha</version>
+      <version>0.6.0.0001-alpha</version>
       <authors>Darren Edward Comeau</authors>
       <owners>Darren Edward Comeau</owners>
       <title>Database Testing Library</title>
@@ -12,23 +12,19 @@
       <licenseUrl>https://github.com/VulcanAnalytics/DBTester/blob/master/LICENSE</licenseUrl>
 
       <releaseNotes>
-        Fix issue with System.Data not referenced (#9)
-        Refactor project names (#8)
+        Refactor project names
       </releaseNotes>
 
       <repository type="git" url="https://github.com/VulcanAnalytics/DBTester.git" />
       
-      <packageTypes>
-          <packageType name="Dependency" />
-      </packageTypes>
+    <packageTypes>
+        <packageType name="Dependency" />
+    </packageTypes>
       
-      <dependencies>
-          <dependency id="Microsoft.SqlServer.SqlManagementObjects" version="140.17283.0" />
-      </dependencies>
-
-      <frameworkAssemblies>
-        <frameworkAssembly assemblyName="System.Data"  />
-      </frameworkAssemblies>
+      <!-- Dependencies are automatically installed when the package is installed -->
+    <dependencies>
+        <dependency id="Microsoft.SqlServer.SqlManagementObjects" version="140.17283.0" />
+    </dependencies>
       
     </metadata>
 </package>
