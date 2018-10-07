@@ -68,7 +68,7 @@ steps:
 
   inputs:
 
-    SourceFolder: 'src/dbSpecflow_net461/bin/x86/Release'
+    SourceFolder: 'src/DatabaseTester_net461/bin/x86/Release'
 
 
 
