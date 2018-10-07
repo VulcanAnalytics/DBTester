@@ -1,30 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
-    <metadata>
-	    <id>VulcanAnalytics.DBTester</id>
-      <version>0.6.0.0001-alpha</version>
-      <authors>Darren Edward Comeau</authors>
-      <owners>Darren Edward Comeau</owners>
-      <title>Database Testing Library</title>
-      <description>A number of simplified methods to check database objects and execute sql against an MSSQL database.</description>
-      <tags>database testing mssql sql server</tags>
-      <projectUrl>https://github.com/VulcanAnalytics/DBTester/wiki</projectUrl>
-      <licenseUrl>https://github.com/VulcanAnalytics/DBTester/blob/master/LICENSE</licenseUrl>
+  <metadata>
+    <id>VulcanAnalytics.DBTester</id>
+    <version>0.6.1.0000-alpha</version>
+    <authors>Darren Edward Comeau</authors>
+    <owners>Darren Edward Comeau</owners>
+    <title>Database Testing Library</title>
+    <description>A number of simplified methods to check database objects and execute sql against an MSSQL database.</description>
+    <tags>database testing mssql sql server</tags>
+    <projectUrl>https://github.com/VulcanAnalytics/DBTester/wiki</projectUrl>
+    <licenseUrl>https://github.com/VulcanAnalytics/DBTester/blob/master/LICENSE</licenseUrl>
 
-      <releaseNotes>
-        Refactor project names
-      </releaseNotes>
+    <releaseNotes>
+      Fix issue with System.Data not referenced (#9)
+      Refactor project names (#8)
+    </releaseNotes>
 
-      <repository type="git" url="https://github.com/VulcanAnalytics/DBTester.git" />
-      
+    <repository type="git" url="https://github.com/VulcanAnalytics/DBTester.git" />
+
     <packageTypes>
-        <packageType name="Dependency" />
+      <packageType name="Dependency" />
     </packageTypes>
-      
-      <!-- Dependencies are automatically installed when the package is installed -->
+
     <dependencies>
-        <dependency id="Microsoft.SqlServer.SqlManagementObjects" version="140.17283.0" />
+      <dependency id="Microsoft.SqlServer.SqlManagementObjects" version="140.17283.0" />
     </dependencies>
-      
-    </metadata>
+
+    <frameworkAssemblies>
+      <frameworkAssembly assemblyName="System.Data"  />
+    </frameworkAssemblies>
+
+  </metadata>
 </package>
