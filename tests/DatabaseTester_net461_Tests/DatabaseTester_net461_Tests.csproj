@@ -188,7 +188,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\src\dbSpecflow_net461\dbSpecflow_net461.csproj">
+    <ProjectReference Include="..\..\src\DatabaseTester_net461\DatabaseTester_net461.csproj">
       <Project>{83de582a-0798-4ed1-bfca-3df185699300}</Project>
       <Name>dbSpecflow_net461</Name>
     </ProjectReference>
