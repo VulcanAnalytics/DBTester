@@ -96,55 +96,6 @@ namespace VulcanAnalytics.DBTester.dbSpecflow_tests
         }
 
         [TestMethod]
-        public void InsertDataCanInsertOneRow()
-        {
-            var expectedCount = 1;
-            var connectionstring = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=tempdb;Integrated Security=SSPI;";
-            var tester = new DBTester.MsSqlDatabaseTester(connectionstring);
-            tester.ExecuteStatementWithoutResult("drop table if exists [dbo].[testtable];");
-            tester.ExecuteStatementWithoutResult("create table [dbo].[testtable]([col1] int);");
-            var schemaName = "dbo";
-            var tableName = "testtable";
-            var columns = new string[]{ "col1" };
-            var data = new object[]
-                {
-                    new Object[]{1}
-                };
-
-
-            tester.InsertData(schemaName, tableName, columns, data);
-
-
-            var actualCount = tester.RowCount(schemaName, tableName);
-            Assert.AreEqual(expectedCount, actualCount);
-        }
-
-        [TestMethod]
-        public void InsertDataCanInsertMultipleRows()
-        {
-            var expectedCount = 2;
-            var connectionstring = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=tempdb;Integrated Security=SSPI;";
-            var tester = new DBTester.MsSqlDatabaseTester(connectionstring);
-            tester.ExecuteStatementWithoutResult("drop table if exists [dbo].[testtable];");
-            tester.ExecuteStatementWithoutResult("create table [dbo].[testtable]([col1] int);");
-            var schemaName = "dbo";
-            var tableName = "testtable";
-            var columns = new string[] { "col1" };
-            var data = new object[]
-                {
-                    new Object[]{1},
-                    new Object[]{1}
-                };
-
-
-            tester.InsertData(schemaName, tableName, columns, data);
-
-
-            var actualCount = tester.RowCount(schemaName, tableName);
-            Assert.AreEqual(expectedCount, actualCount);
-        }
-
-        [TestMethod]
         public void InsertDataWikiExample()
         {
             // Setup the Database Tester object using the MS SQL implementation
@@ -167,56 +118,6 @@ namespace VulcanAnalytics.DBTester.dbSpecflow_tests
 
             // Call the Insertdata method to insert the rows
             tester.InsertData(schemaName, tableName, columns, data);
-        }
-
-        [TestMethod]
-        public void InsertDataCanInsertTextValues()
-        {
-            var expectedCount = 2;
-            var connectionstring = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=tempdb;Integrated Security=SSPI;";
-            var tester = new DBTester.MsSqlDatabaseTester(connectionstring);
-            tester.ExecuteStatementWithoutResult("drop table if exists [dbo].[testtable];");
-            tester.ExecuteStatementWithoutResult("create table [dbo].[testtable]([col1] varchar(200));");
-            var schemaName = "dbo";
-            var tableName = "testtable";
-            var columns = new string[] { "col1" };
-            var data = new object[]
-                {
-                    new Object[]{1},
-                    new Object[]{"Text"}
-                };
-
-
-            tester.InsertData(schemaName, tableName, columns, data);
-
-
-            var actualCount = tester.RowCount(schemaName, tableName);
-            Assert.AreEqual(expectedCount, actualCount);
-        }
-
-        [TestMethod]
-        public void InsertDataCanInsertMultipleColumns()
-        {
-            var expectedCount = 2;
-            var connectionstring = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=tempdb;Integrated Security=SSPI;";
-            var tester = new DBTester.MsSqlDatabaseTester(connectionstring);
-            tester.ExecuteStatementWithoutResult("drop table if exists [dbo].[testtable];");
-            tester.ExecuteStatementWithoutResult("create table [dbo].[testtable]([col1] varchar(200) not null, [col2] varchar(200) not null);");
-            var schemaName = "dbo";
-            var tableName = "testtable";
-            var columns = new string[] { "col1","col2" };
-            var data = new object[]
-                {
-                    new Object[]{1,"Two"},
-                    new Object[]{"One",2}
-                };
-
-
-            tester.InsertData(schemaName, tableName, columns, data);
-
-
-            var actualCount = tester.RowCount(schemaName, tableName);
-            Assert.AreEqual(expectedCount, actualCount);
         }
 
         #region Private Methods

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 
 namespace VulcanAnalytics.DBTester
@@ -19,20 +20,56 @@ namespace VulcanAnalytics.DBTester
 
         public abstract DataSet ExecuteStatementWithResult(string sqlStatement);
 
+
         public void InsertData(string schemaName, string objectName, string[] columns, Object[] data)
         {
             string sqlColumns = SqlColumns(columns);
 
             foreach (Object[] row in data)
             {
-                string sqlValues = SqlValues(row);
-
-                var sql = SqlInsertStatement(schemaName, objectName, sqlColumns, sqlValues);
-
-                TryToInsertRow(sql);
+                InsertRow(schemaName, objectName, sqlColumns, row);
             }
         }
 
+        public void InsertData(string schemaName, string objectName, string[] columns, Object[] data, ColumnDefaults defaults)
+        {
+            var columnsWithDefaultsAdded = ColumnsWithDefaultsAdded(columns,defaults);
+
+            var sqlColumns = SqlColumns(columnsWithDefaultsAdded);
+
+            foreach (Object[] row in data)
+            {
+                var newRow = CombineRowDataWithDefaults(row, columnsWithDefaultsAdded);
+
+                InsertRow(schemaName, objectName, sqlColumns, newRow);
+            }
+        }
+
+
+        #region Private Methods
+
+        private void InsertRow(string schemaName, string objectName, string sqlColumns, object[] row)
+        {
+            var cleanRow = CleanColumns(row);
+
+            string sqlValues = SqlValues(cleanRow);
+
+            var sql = SqlInsertStatement(schemaName, objectName, sqlColumns, sqlValues);
+
+            TryToInsertRow(sql);
+        }
+
+        private object[] CleanColumns (object[] row)
+        {
+            var cleanRow = new object[row.Length];
+            var i = 0;
+            while (i < row.Length)
+            {
+                cleanRow[i] = row[i].ToString().Replace("'", "''");
+                i++;
+            }
+            return cleanRow;
+        }
 
         private void TryToInsertRow(string insertStatement)
         {
@@ -46,11 +83,67 @@ namespace VulcanAnalytics.DBTester
             }
         }
 
+        private string SqlColumns(Dictionary<string, object> columns)
+        {
+            var newColumns = new string[columns.Count];
+            columns.Keys.CopyTo(newColumns, 0);
+            var sqlColumns = SqlColumns(newColumns);
+            return sqlColumns;
+        }
+
         private string SqlColumns(Object[] columns)
         {
             string sqlColumns = ArrayAsTemplatedString(columns, "{0}", ",");
 
             return sqlColumns;
+        }
+
+        private Dictionary<string, object> ColumnsWithDefaultsAdded(Object[] columns, ColumnDefaults defaults)
+        {
+            var combinedColumns = new Dictionary<string, object>();
+            foreach (string c in columns)
+            {
+                    combinedColumns.Add(c, "ColumnInData");
+            }
+            foreach (KeyValuePair<string, object> d in defaults)
+            {
+                if(combinedColumns.ContainsKey(d.Key))
+                {
+                    combinedColumns[d.Key] = d.Value;
+                }
+                else
+                {
+                combinedColumns.Add(d.Key, d.Value);
+                }
+            }
+
+            return combinedColumns;
+        }
+
+        private object[] CombineRowDataWithDefaults(object[] row, Dictionary<string, object> columnsWithDefaultsAdded)
+        {
+            var newRow = new object[columnsWithDefaultsAdded.Count];
+            var defaults = new object[columnsWithDefaultsAdded.Count];
+            columnsWithDefaultsAdded.Values.CopyTo(defaults, 0);
+            var i = 0;
+            while (i < columnsWithDefaultsAdded.Count)
+            {
+                object value = null;
+                if (row.Length > i)
+                {
+                    value = row[i];
+                }
+                else
+                {
+                    value = defaults[i];
+                }
+
+                newRow[i] = value;
+
+                i++;
+            }
+
+            return newRow;
         }
 
         private string SqlValues(Object[] values)
@@ -82,5 +175,7 @@ namespace VulcanAnalytics.DBTester
 
             return statement;
         }
+
+        #endregion
     }
 }
