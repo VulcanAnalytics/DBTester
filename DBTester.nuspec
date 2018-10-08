@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>VulcanAnalytics.DBTester</id>
-    <version>0.6.1.0000-alpha</version>
+    <version>0.7.0.0000-alpha</version>
     <authors>Darren Edward Comeau</authors>
     <owners>Darren Edward Comeau</owners>
     <title>Database Testing Library</title>
@@ -12,8 +12,8 @@
     <licenseUrl>https://github.com/VulcanAnalytics/DBTester/blob/master/LICENSE</licenseUrl>
 
     <releaseNotes>
-      Fix issue with System.Data not referenced (#9)
-      Refactor project names (#8)
+      Fixed bug in InsertData method, not handling single quotes in data (#17)
+      New class VulcanAnalytics.DBTester.ColumnDefaults can be created and passed into the InsertData method so you only need to specify the test relevant columns in a suite of tests (#10)
     </releaseNotes>
 
     <repository type="git" url="https://github.com/VulcanAnalytics/DBTester.git" />

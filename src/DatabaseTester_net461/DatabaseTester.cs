@@ -20,6 +20,7 @@ namespace VulcanAnalytics.DBTester
 
         public abstract DataSet ExecuteStatementWithResult(string sqlStatement);
 
+
         public void InsertData(string schemaName, string objectName, string[] columns, Object[] data)
         {
             string sqlColumns = SqlColumns(columns);
@@ -33,9 +34,8 @@ namespace VulcanAnalytics.DBTester
         public void InsertData(string schemaName, string objectName, string[] columns, Object[] data, ColumnDefaults defaults)
         {
             var columnsWithDefaultsAdded = ColumnsWithDefaultsAdded(columns,defaults);
-            string[] newColumns = new string[columnsWithDefaultsAdded.Count];
-            columnsWithDefaultsAdded.Keys.CopyTo(newColumns, 0);
-            string sqlColumns = SqlColumns(newColumns);
+
+            var sqlColumns = SqlColumns(columnsWithDefaultsAdded);
 
             foreach (Object[] row in data)
             {
@@ -45,15 +45,13 @@ namespace VulcanAnalytics.DBTester
             }
         }
 
+
+        #region Private Methods
+
         private void InsertRow(string schemaName, string objectName, string sqlColumns, object[] row)
         {
-            var cleanRow = new object[row.Length];
-            var i = 0;
-            while ( i < row.Length)
-            {
-                cleanRow[i] = row[i].ToString().Replace("'", "''");
-                i++;
-            }
+            var cleanRow = CleanColumns(row);
+
             string sqlValues = SqlValues(cleanRow);
 
             var sql = SqlInsertStatement(schemaName, objectName, sqlColumns, sqlValues);
@@ -61,6 +59,17 @@ namespace VulcanAnalytics.DBTester
             TryToInsertRow(sql);
         }
 
+        private object[] CleanColumns (object[] row)
+        {
+            var cleanRow = new object[row.Length];
+            var i = 0;
+            while (i < row.Length)
+            {
+                cleanRow[i] = row[i].ToString().Replace("'", "''");
+                i++;
+            }
+            return cleanRow;
+        }
 
         private void TryToInsertRow(string insertStatement)
         {
@@ -72,6 +81,14 @@ namespace VulcanAnalytics.DBTester
             {
                 throw new Exception(String.Format("Error encountered executing the insert statement: {0}", insertStatement), exception);
             }
+        }
+
+        private string SqlColumns(Dictionary<string, object> columns)
+        {
+            var newColumns = new string[columns.Count];
+            columns.Keys.CopyTo(newColumns, 0);
+            var sqlColumns = SqlColumns(newColumns);
+            return sqlColumns;
         }
 
         private string SqlColumns(Object[] columns)
@@ -158,5 +175,7 @@ namespace VulcanAnalytics.DBTester
 
             return statement;
         }
+
+        #endregion
     }
 }
