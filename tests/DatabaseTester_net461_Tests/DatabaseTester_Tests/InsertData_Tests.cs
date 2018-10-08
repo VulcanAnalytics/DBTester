@@ -120,6 +120,76 @@ namespace VulcanAnalytics.DBTester.dbSpecflow_tests.DatabaseTester_Tests
             Assert.AreEqual(expectedValue, actualValue);
         }
 
+        [TestMethod]
+        public void Data_Specified_For_A_Column_Overrides_The_Default_Data()
+        {
+            var expectedValue = "Hello, World.";
+            var schemaName = "dbo";
+            var tableName = "testtable";
+            DropAndCreateTestTable(schemaName, tableName, "[col1manual] int, [col2withdefault] varchar(200)");
+            var columns = new string[] { "col1manual", "col2withdefault" };
+            var data = new object[]
+                {
+                    new object[]{ 1, expectedValue }
+                };
+            var defaults = new ColumnDefaults();
+            defaults.AddDefault(new KeyValuePair<string, object>("col2withdefault", "Column's default value"));
+
+
+            tester.InsertData(schemaName, tableName, columns, data, defaults);
+
+
+            var results = tester.ExecuteStatementWithResult(string.Format("select * from {0}.{1};", schemaName, tableName));
+            var actualValue = results.Tables[0].Rows[0]["col2withdefault"];
+            Assert.AreEqual(expectedValue, actualValue);
+        }
+
+        [TestMethod]
+        public void Inserting_Data_Correctly_Handles_Single_Quotes()
+        {
+            var expectedValue = "Hello, 'World'.";
+            var schemaName = "dbo";
+            var tableName = "testtable";
+            DropAndCreateTestTable(schemaName, tableName, "[col1] varchar(200)");
+            var columns = new string[] { "col1" };
+            var data = new object[]
+                {
+                    new object[]{ expectedValue }
+                };
+
+
+            tester.InsertData(schemaName, tableName, columns, data);
+
+
+            var results = tester.ExecuteStatementWithResult(string.Format("select * from {0}.{1};", schemaName, tableName));
+            var actualValue = results.Tables[0].Rows[0]["col1"];
+            Assert.AreEqual(expectedValue, actualValue);
+        }
+
+        [TestMethod]
+        public void Inserting_Defaults_Correctly_Handles_Single_Quotes()
+        {
+            var expectedValue = "Hello, 'World'.";
+            var schemaName = "dbo";
+            var tableName = "testtable";
+            DropAndCreateTestTable(schemaName, tableName, "[col1manual] int, [col2withdefault] varchar(200)");
+            var columns = new string[] { "col1manual" };
+            var data = new object[]
+                {
+                    new object[]{1}
+                };
+            var defaults = new ColumnDefaults();
+            defaults.AddDefault(new KeyValuePair<string, object>("col2withdefault", expectedValue));
+
+
+            tester.InsertData(schemaName, tableName, columns, data, defaults);
+
+
+            var results = tester.ExecuteStatementWithResult(string.Format("select * from {0}.{1};", schemaName, tableName));
+            var actualValue = results.Tables[0].Rows[0]["col2withdefault"];
+            Assert.AreEqual(expectedValue, actualValue);
+        }
+
         #region Private Methods
         private void DropAndCreateTestTable(string schemaName, string tableName, string columnDef)
         {

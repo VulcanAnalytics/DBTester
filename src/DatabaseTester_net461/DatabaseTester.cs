@@ -26,11 +26,7 @@ namespace VulcanAnalytics.DBTester
 
             foreach (Object[] row in data)
             {
-                string sqlValues = SqlValues(row);
-
-                var sql = SqlInsertStatement(schemaName, objectName, sqlColumns, sqlValues);
-
-                TryToInsertRow(sql);
+                InsertRow(schemaName, objectName, sqlColumns, row);
             }
         }
 
@@ -44,12 +40,25 @@ namespace VulcanAnalytics.DBTester
             foreach (Object[] row in data)
             {
                 var newRow = CombineRowDataWithDefaults(row, columnsWithDefaultsAdded);
-                string sqlValues = SqlValues(newRow);
 
-                var sql = SqlInsertStatement(schemaName, objectName, sqlColumns, sqlValues);
-
-                TryToInsertRow(sql);
+                InsertRow(schemaName, objectName, sqlColumns, newRow);
             }
+        }
+
+        private void InsertRow(string schemaName, string objectName, string sqlColumns, object[] row)
+        {
+            var cleanRow = new object[row.Length];
+            var i = 0;
+            while ( i < row.Length)
+            {
+                cleanRow[i] = row[i].ToString().Replace("'", "''");
+                i++;
+            }
+            string sqlValues = SqlValues(cleanRow);
+
+            var sql = SqlInsertStatement(schemaName, objectName, sqlColumns, sqlValues);
+
+            TryToInsertRow(sql);
         }
 
 
