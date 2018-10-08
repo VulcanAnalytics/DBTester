@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
 
 namespace VulcanAnalytics.DBTester.dbSpecflow_tests.DatabaseTester_Tests
 {
@@ -93,6 +94,30 @@ namespace VulcanAnalytics.DBTester.dbSpecflow_tests.DatabaseTester_Tests
 
             var actualCount = tester.RowCount(schemaName, tableName);
             Assert.AreEqual(expectedCount, actualCount);
+        }
+
+        [TestMethod]
+        public void I_Can_Insert_Some_Columns_With_Defaults_For_Other_Columns()
+        {
+            var expectedValue = "Hello, World.";
+            var schemaName = "dbo";
+            var tableName = "testtable";
+            DropAndCreateTestTable(schemaName, tableName, "[col1manual] int, [col2withdefault] varchar(200)");
+            var columns = new string[] { "col1manual" };
+            var data = new object[]
+                {
+                    new object[]{1}
+                };
+            var defaults = new ColumnDefaults();
+            defaults.AddDefault(new KeyValuePair<string, object>("col2withdefault", expectedValue));
+
+
+            tester.InsertData(schemaName, tableName, columns, data, defaults);
+
+
+            var results = tester.ExecuteStatementWithResult(string.Format("select * from {0}.{1};",schemaName,tableName));
+            var actualValue = results.Tables[0].Rows[0]["col2withdefault"];
+            Assert.AreEqual(expectedValue, actualValue);
         }
 
         #region Private Methods
