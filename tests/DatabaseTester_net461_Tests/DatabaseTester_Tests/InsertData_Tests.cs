@@ -97,6 +97,28 @@ namespace VulcanAnalytics.DBTester.dbSpecflow_tests.DatabaseTester_Tests
         }
 
         [TestMethod]
+        public void InsertDataCanInsertNullColumns()
+        {
+            var expectedCount = 2;
+            var schemaName = "dbo";
+            var tableName = "testtable";
+            DropAndCreateTestTable(schemaName, tableName, "[col1] varchar(200), [col2] varchar(200)");
+            var columns = new string[] { "col1", "col2" };
+            var data = new object[]
+                {
+                    new object[]{null,"Two"},
+                    new object[]{"One",null}
+                };
+
+
+            tester.InsertData(schemaName, tableName, columns, data);
+
+
+            var actualCount = tester.RowCount(schemaName, tableName);
+            Assert.AreEqual(expectedCount, actualCount);
+        }
+
+        [TestMethod]
         public void I_Can_Insert_Some_Columns_With_Defaults_For_Other_Columns()
         {
             var expectedValue = "Hello, World.";

@@ -65,7 +65,14 @@ namespace VulcanAnalytics.DBTester
             var i = 0;
             while (i < row.Length)
             {
-                cleanRow[i] = row[i].ToString().Replace("'", "''");
+                if (row[i] == null)
+                {
+                    cleanRow[i] = null;
+                }
+                else
+                {
+                    cleanRow[i] = row[i].ToString().Replace("'", "''");
+                }
                 i++;
             }
             return cleanRow;
