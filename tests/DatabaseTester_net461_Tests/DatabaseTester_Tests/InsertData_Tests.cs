@@ -117,8 +117,8 @@ namespace VulcanAnalytics.DBTester.dbSpecflow_tests.DatabaseTester_Tests
             var actualCount = tester.RowCount(schemaName, tableName);
             var results = tester.ExecuteStatementWithResult("select [col1],[col2] from [dbo].[testtable];");
             Assert.AreEqual(expectedCount, actualCount);
-            Assert.AreEqual(null, results.Tables[0].Rows[0]["col1"]);
-            Assert.AreEqual(null, results.Tables[0].Rows[0]["col2"]);
+            Assert.IsInstanceOfType(results.Tables[0].Rows[0]["col1"], typeof(System.DBNull));
+            Assert.IsInstanceOfType(results.Tables[0].Rows[1]["col2"], typeof(System.DBNull));
         }
 
         [TestMethod]
