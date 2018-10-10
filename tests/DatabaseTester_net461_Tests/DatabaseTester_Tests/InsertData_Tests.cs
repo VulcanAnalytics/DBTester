@@ -102,12 +102,12 @@ namespace VulcanAnalytics.DBTester.dbSpecflow_tests.DatabaseTester_Tests
             var expectedCount = 2;
             var schemaName = "dbo";
             var tableName = "testtable";
-            DropAndCreateTestTable(schemaName, tableName, "[col1] varchar(200), [col2] varchar(200)");
+            DropAndCreateTestTable(schemaName, tableName, "[col1] varchar(200), [col2] int");
             var columns = new string[] { "col1", "col2" };
             var data = new object[]
                 {
-                    new object[]{null,"Two"},
-                    new object[]{"One",null}
+                    new object[]{null as string,2},
+                    new object[]{"One",null as int?}
                 };
 
 
@@ -115,7 +115,10 @@ namespace VulcanAnalytics.DBTester.dbSpecflow_tests.DatabaseTester_Tests
 
 
             var actualCount = tester.RowCount(schemaName, tableName);
+            var results = tester.ExecuteStatementWithResult("select [col1],[col2] from [dbo].[testtable];");
             Assert.AreEqual(expectedCount, actualCount);
+            Assert.IsInstanceOfType(results.Tables[0].Rows[0]["col1"], typeof(System.DBNull));
+            Assert.IsInstanceOfType(results.Tables[0].Rows[1]["col2"], typeof(System.DBNull));
         }
 
         [TestMethod]
