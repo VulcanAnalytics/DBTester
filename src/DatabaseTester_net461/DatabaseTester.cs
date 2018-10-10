@@ -14,6 +14,8 @@ namespace VulcanAnalytics.DBTester
 
         public abstract bool HasTable(string schemaName, string tableName);
 
+        public abstract void DropTable(string schemaName, string tableName);
+
         public abstract int RowCount(string schemaName, string objectName);
 
         public abstract void ExecuteStatementWithoutResult(string sqlStatement);

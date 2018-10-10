@@ -51,6 +51,12 @@ namespace VulcanAnalytics.DBTester
             return this.database.Tables.Contains(tableName, schemaName);
         }
 
+        public override void DropTable(string schemaName, string tableName)
+        {
+            if (this.database.Tables.Contains(tableName, schemaName))
+                this.database.Tables[tableName, schemaName].Drop();
+        }
+
         public override bool HasTable(string tableName)
         {
             return HasTable(base.defaultSchema, tableName);
