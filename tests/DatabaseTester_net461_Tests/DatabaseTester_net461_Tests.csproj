@@ -175,11 +175,13 @@
     <Compile Include="DatabaseTester_Tests\ColumnDefaults_Tests.cs" />
     <Compile Include="DatabaseTester_Tests\InsertData_Tests.cs" />
     <Compile Include="Mocks\MockDatabaseTester.cs" />
+    <Compile Include="MsSqlDatabaseTester\ClearTable_Tests.cs" />
     <Compile Include="MsSqlDatabaseTester\ExecuteStatementWithResult_Tests.cs" />
     <Compile Include="MsSqlDatabaseTester\HasSchema_Tests.cs" />
     <Compile Include="MsSqlDatabaseTester\ExecuteStatementWithoutResult_Tests.cs" />
     <Compile Include="MsSqlDatabaseTester\HasTable_Tests.cs" />
     <Compile Include="MsSqlDatabaseTester\NewObject_Tests.cs" />
+    <Compile Include="MsSqlDatabaseTester\DropTable_Tests.cs" />
     <Compile Include="MsSqlDatabaseTester\RowCount_Tests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DatabaseTesterTests.cs" />

@@ -2,9 +2,11 @@
 
 ### What is DBTester?
 
-DBTester is a small library built to remove the need for database plumbing and repetitive code for performing utility actions from one test project to the next. Afterall why copy and paste the same database code from one project to the next, or worse still, write it out again?
+DBTester is a testing framework library built to remove the need for database plumbing and repetitive code for performing utility actions from one test project to the next. Afterall why copy and paste the same database code from one project to the next, or worse still, write it out again?
 
-This library is available through [NuGet](https://www.nuget.org/packages/VulcanAnalytics.DBTester) for immediate inclusion in your projects
+This library is available through [NuGet](https://www.nuget.org/packages/VulcanAnalytics.DBTester) for immediate inclusion in your projects.
+
+Further information to this README is available [on the wiki](https://github.com/VulcanAnalytics/DBTester/wiki)
 
 ### Ok, but what can I actually do with DBTester?
 
@@ -15,7 +17,7 @@ using VulcanAnalytics.DBTester;
 ```
 
 ```csharp
-var connectionstring = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=tempdb;Integrated Security=True;Persist Security Info=False;Pooling=False;MultipleActiveResultSets=False;Connect Timeout=60;Encrypt=False;TrustServerCertificate=True";
+var connectionstring = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=tempdb;Integrated Security=SSPI;";
 DatabaseTester tester = new MsSqlDatabaseTester(connectionstring);
 ```
 
@@ -32,11 +34,13 @@ Assert.IsTrue(hasTable);
 
 And there we have it, no need to decide on how to use various other database libraries or SQL scripts, just one succint place to come to for database testing utilities.
 
-This list of methods is small today, but increasing (as the database project I'm currently working on requires further unit testing).
+This list of methods is short today, but increasing (as the database projects I'm currently working on requires further unit testing).
 * HasSchema
 * HasTable
-* RowCount
-* InsertData
+* [ClearTable](https://github.com/VulcanAnalytics/DBTester/wiki/ClearTable)
+* [DropTable](https://github.com/VulcanAnalytics/DBTester/wiki/DropTable)
+* [RowCount](https://github.com/VulcanAnalytics/DBTester/wiki/RowCount)
+* [InsertData](https://github.com/VulcanAnalytics/DBTester/wiki/InsertData)
 * ExecuteStatementWithoutResult
 * ExecuteStatementWithResult
 
@@ -74,4 +78,13 @@ If you're running into problems, please file an issue here on GitHub at the top 
 
 ### License, etc.
 
-DBTester is Copyright &copy; 2018 Darren Comeau and other contributors under the [GNU GPLv3 License](LICENSE.txt).
+DBTester source code is Copyright &copy; 2018 Darren Comeau and other contributors under the [GNU GPLv3 License](LICENSE.txt).
+
+### My promise to you.
+
+Here are a couple of notes about how this project will be maintained;
+* Bugs will always come first, when you report a bug it will be the priority. Hopefully that will mean a rapid bug fix release, else advice on a work around and an estimate for which release the fix will be in.
+* [Semantic Versioning](https://semver.org/) will be practiced religiously. You should always be confident that updating to the latest bug or minor release won't cause you an issue.
+* Release notes will include clear details of the changes.
+* Major releases will not be so frequent as to force you to keep reworking your own projects.
+* Major releases will also be supported with bug fixes and new minor features for as long as possible.
