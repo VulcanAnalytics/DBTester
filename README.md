@@ -35,6 +35,8 @@ And there we have it, no need to decide on how to use various other database lib
 This list of methods is small today, but increasing (as the database project I'm currently working on requires further unit testing).
 * HasSchema
 * HasTable
+* ClearTable
+* DropTable
 * RowCount
 * InsertData
 * ExecuteStatementWithoutResult

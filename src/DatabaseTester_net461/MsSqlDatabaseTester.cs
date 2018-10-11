@@ -51,6 +51,37 @@ namespace VulcanAnalytics.DBTester
             return this.database.Tables.Contains(tableName, schemaName);
         }
 
+        public override void ClearTable(string schemaName, string tableName)
+        {
+            if (this.database.Tables.Contains(tableName, schemaName))
+            if (!IsReferencedByForeignKeys(schemaName,tableName))
+                this.database.Tables[tableName, schemaName].TruncateData();
+            else
+                {
+                    var deleteStatement = string.Format("delete from {0}.{1}", schemaName, tableName);
+                    try
+                    {
+                        ExecuteStatementWithoutResult(deleteStatement);
+                    }
+                    catch (Exception e)
+                    {
+                        throw new ChildTablesWithDataReferenceThisTable("Failed to clear table, is there another table with data referencing this table?", e);
+                    }
+                }
+        }
+
+        private bool IsReferencedByForeignKeys(string schemaName, string tableName)
+        {
+            var foreignKeyCheckStatement = string.Format("exec sp_fkeys @pktable_owner = '{0}', @pktable_name = '{1}';", schemaName, tableName);
+
+            var results = ExecuteStatementWithResult(foreignKeyCheckStatement);
+
+            if (results.Tables[0].Rows.Count == 0)
+                return false;
+            else
+                return true;
+        }
+
         public override void DropTable(string schemaName, string tableName)
         {
             if (this.database.Tables.Contains(tableName, schemaName))
