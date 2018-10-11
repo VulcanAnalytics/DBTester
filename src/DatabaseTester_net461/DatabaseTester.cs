@@ -52,7 +52,7 @@ namespace VulcanAnalytics.DBTester
 
         private void InsertRow(string schemaName, string objectName, string sqlColumns, object[] row)
         {
-            var cleanRow = CleanColumns(row);
+            var cleanRow = CleanAndQuoteColumns(row);
 
             string sqlValues = SqlValues(cleanRow);
 
@@ -61,7 +61,7 @@ namespace VulcanAnalytics.DBTester
             TryToInsertRow(sql);
         }
 
-        private object[] CleanColumns (object[] row)
+        private object[] CleanAndQuoteColumns (object[] row)
         {
             var cleanRow = new object[row.Length];
             var i = 0;
@@ -69,11 +69,11 @@ namespace VulcanAnalytics.DBTester
             {
                 if (row[i] == null)
                 {
-                    cleanRow[i] = null;
+                    cleanRow[i] = "null";
                 }
                 else
                 {
-                    cleanRow[i] = row[i].ToString().Replace("'", "''");
+                    cleanRow[i] = string.Format("'{0}'",row[i].ToString().Replace("'", "''"));
                 }
                 i++;
             }
@@ -157,7 +157,7 @@ namespace VulcanAnalytics.DBTester
 
         private string SqlValues(Object[] values)
         {
-            string sqlValues = ArrayAsTemplatedString(values, "'{0}'",",");
+            string sqlValues = ArrayAsTemplatedString(values, "{0}",",");
 
             return sqlValues;
         }
