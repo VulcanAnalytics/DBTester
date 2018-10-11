@@ -85,7 +85,16 @@ namespace VulcanAnalytics.DBTester
         public override void DropTable(string schemaName, string tableName)
         {
             if (this.database.Tables.Contains(tableName, schemaName))
-                this.database.Tables[tableName, schemaName].Drop();
+            {
+                try
+                {
+                    this.database.Tables[tableName, schemaName].Drop();
+                }
+                catch (Exception e)
+                {
+                    throw new ChildTablesReferenceThisTable("Failed to drop table, is there another table referencing this table?", e);
+                }
+            }
         }
 
         public override bool HasTable(string tableName)

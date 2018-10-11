@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using VulcanAnalytics.DBTester.Exceptions;
 
 namespace VulcanAnalytics.DBTester.dbSpecflow_tests.MsSqlDatabaseTester
 {
@@ -13,7 +14,7 @@ namespace VulcanAnalytics.DBTester.dbSpecflow_tests.MsSqlDatabaseTester
         private const string tableName = "testtable";
 
         [TestMethod]
-        public void WillDropTableIfExists()
+        public void Will_Drop_Table_If_Exists()
         {
             DropAndCreateTable(schemaName, tableName);
 
@@ -23,11 +24,25 @@ namespace VulcanAnalytics.DBTester.dbSpecflow_tests.MsSqlDatabaseTester
         }
 
         [TestMethod]
-        public void WillNotErrorIfTableAndOrSchemaDoesntExist()
+        public void Will_Not_Error_If_Table_And_Or_Schema_Doesnt_Exist()
         {
             tester.DropTable("blah", tableName);
             tester.DropTable(schemaName, "blah");
             tester.DropTable("blah", "blah");
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ChildTablesReferenceThisTable))]
+        public void Will_Error_If_Table_With_Foreign_Key_Has_Cascaded_Data()
+        {
+            tester.DropTable("dbo", "child");
+            tester.DropTable("dbo", "parent");
+            tester.ExecuteStatementWithoutResult("create table [dbo].[parent]([id] int primary key, [name] varchar(200));");
+            tester.ExecuteStatementWithoutResult("create table [dbo].[child]([id] int, [parentid] int not null, [name] varchar(200));");
+            tester.ExecuteStatementWithoutResult("alter table [dbo].[child] add constraint [FK_parent_child] foreign key ([parentid]) references [dbo].[parent]([id]);");
+
+
+            tester.DropTable("dbo", "parent");
         }
 
         #region Private Methods
