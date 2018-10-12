@@ -32,6 +32,10 @@ namespace VulcanAnalytics.DBTester
             {
                 throw new NoColumnsToInsert();
             }
+            if (data.Length == 0)
+            {
+                throw new NoRowsToInsert();
+            }
 
             string sqlColumns = SqlColumns(columns);
 
@@ -43,6 +47,11 @@ namespace VulcanAnalytics.DBTester
 
         public void InsertData(string schemaName, string objectName, string[] columns, Object[] data, ColumnDefaults defaults)
         {
+            if (data.Length == 0)
+            {
+                throw new NoRowsToInsert();
+            }
+
             var columnsWithDefaultsAdded = ColumnsWithDefaultsAdded(columns,defaults);
 
             var sqlColumns = SqlColumns(columnsWithDefaultsAdded);

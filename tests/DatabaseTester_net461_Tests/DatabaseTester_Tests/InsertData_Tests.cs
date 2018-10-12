@@ -266,6 +266,34 @@ namespace VulcanAnalytics.DBTester.dbSpecflow_tests.DatabaseTester_Tests
         }
 
         [TestMethod]
+        [ExpectedException(typeof(NoRowsToInsert))]
+        public void I_Receive_An_Error_When_No_Rows_Supplied()
+        {
+            var schemaName = "dbo";
+            var tableName = "testtable";
+            DropAndCreateTestTable(schemaName, tableName, "[col1] int");
+            var columns = new string[] { "col1" };
+            var data = new object[0];
+
+            tester.InsertData(schemaName, tableName, columns, data);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(NoRowsToInsert))]
+        public void I_Receive_An_Error_When_No_Rows_Supplied_Even_With_Defaults()
+        {
+            var schemaName = "dbo";
+            var tableName = "testtable";
+            DropAndCreateTestTable(schemaName, tableName, "[col1manual] int, [col2withdefault] varchar(200)");
+            var columns = new string[] { "col1manual" };
+            var data = new object[0];
+            var defaults = new ColumnDefaults();
+            defaults.AddDefault(new KeyValuePair<string, object>("col2withdefault", "defaultvalue"));
+
+            tester.InsertData(schemaName, tableName, columns, data, defaults);
+        }
+
+        [TestMethod]
         public void Inserting_Data_Correctly_Handles_Single_Quotes()
         {
             var expectedValue = "Hello, 'World'.";
