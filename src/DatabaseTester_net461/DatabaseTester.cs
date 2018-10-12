@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using VulcanAnalytics.DBTester.Exceptions;
 
 namespace VulcanAnalytics.DBTester
 {
@@ -27,6 +28,11 @@ namespace VulcanAnalytics.DBTester
 
         public void InsertData(string schemaName, string objectName, string[] columns, Object[] data)
         {
+            if (columns.Length == 0)
+            {
+                throw new NoColumnsToInsert();
+            }
+
             string sqlColumns = SqlColumns(columns);
 
             foreach (Object[] row in data)
@@ -128,6 +134,11 @@ namespace VulcanAnalytics.DBTester
                 {
                 combinedColumns.Add(d.Key, d.Value);
                 }
+            }
+
+            if (combinedColumns.Count == 0)
+            {
+                throw new NoColumnsToInsert();
             }
 
             return combinedColumns;

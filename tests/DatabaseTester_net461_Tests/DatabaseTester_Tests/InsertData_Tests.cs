@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
+using VulcanAnalytics.DBTester.Exceptions;
 
 namespace VulcanAnalytics.DBTester.dbSpecflow_tests.DatabaseTester_Tests
 {
@@ -219,6 +220,49 @@ namespace VulcanAnalytics.DBTester.dbSpecflow_tests.DatabaseTester_Tests
             var results = tester.ExecuteStatementWithResult(string.Format("select * from {0}.{1};", schemaName, tableName));
             var actualCount = results.Tables[0].Rows.Count;
             Assert.AreEqual(expectedCount, actualCount);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(NoColumnsToInsert))]
+        public void I_Receive_An_Error_When_No_Defaults_And_No_Other_Data_Supplied()
+        {
+            var schemaName = "dbo";
+            var tableName = "testtable";
+            DropAndCreateTestTable(schemaName, tableName, "[col1manual] int, [col2withdefault] varchar(200)");
+            var columns = new string[0];
+            var data = new object[]
+                {
+                    null,
+                    null,
+                    null,
+                    null,
+                    null
+                };
+            var defaults = new ColumnDefaults();
+
+
+            tester.InsertData(schemaName, tableName, columns, data, defaults);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(NoColumnsToInsert))]
+        public void I_Receive_An_Error_When_No_Columns_Supplied()
+        {
+            var schemaName = "dbo";
+            var tableName = "testtable";
+            DropAndCreateTestTable(schemaName, tableName, "[col1manual] int, [col2withdefault] varchar(200)");
+            var columns = new string[0];
+            var data = new object[]
+                {
+                    null,
+                    null,
+                    null,
+                    null,
+                    null
+                };
+
+
+            tester.InsertData(schemaName, tableName, columns, data);
         }
 
         [TestMethod]
