@@ -2,19 +2,17 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>VulcanAnalytics.DBTester</id>
-    <version>0.8.0.0000-alpha</version>
+    <version>0.9.0.0000-alpha</version>
     <authors>Darren Edward Comeau</authors>
     <owners>Darren Edward Comeau</owners>
     <title>Database Testing Library</title>
     <description>A number of simple methods to test database objects and execute sql. Currently supports Microsoft SQL Server databases.</description>
-    <tags>database testing test framework mssql sql server microsoft unit integration helper tdd c# acceptance mstest nunit xunit</tags>
+    <tags>database testing test framework mssql sql server microsoft unit integration helper tdd c# acceptance mstest nunit xunit tester db vulcan analytics</tags>
     <projectUrl>https://github.com/VulcanAnalytics/DBTester/wiki</projectUrl>
     <licenseUrl>https://github.com/VulcanAnalytics/DBTester/blob/master/LICENSE</licenseUrl>
 
     <releaseNotes>
-      New table methods:
-      DropTable will remove the table from your database if it exists
-      ClearTable will remove the contents of your table if it is not referenced by other data
+      Enhanced InsertData method with more error handling when not enough information provided.
     </releaseNotes>
 
     <repository type="git" url="https://github.com/VulcanAnalytics/DBTester.git" />
