@@ -170,6 +170,58 @@ namespace VulcanAnalytics.DBTester.dbSpecflow_tests.DatabaseTester_Tests
         }
 
         [TestMethod]
+        public void I_Can_Insert_Rows_With_Defaults_And_No_Other_Data()
+        {
+            var expectedValue = "Hello, World.";
+            var schemaName = "dbo";
+            var tableName = "testtable";
+            DropAndCreateTestTable(schemaName, tableName, "[col1manual] int, [col2withdefault] varchar(200)");
+            var columns = new string[0];
+            var data = new object[]
+                {
+                    null
+                };
+            var defaults = new ColumnDefaults();
+            defaults.AddDefault(new KeyValuePair<string, object>("col2withdefault", expectedValue));
+
+
+            tester.InsertData(schemaName, tableName, columns, data, defaults);
+
+
+            var results = tester.ExecuteStatementWithResult(string.Format("select * from {0}.{1};", schemaName, tableName));
+            var actualValue = results.Tables[0].Rows[0]["col2withdefault"];
+            Assert.AreEqual(expectedValue, actualValue);
+        }
+
+        [TestMethod]
+        public void I_Can_Insert_Several_Rows_With_Defaults_And_No_Other_Data()
+        {
+            var expectedCount = 5;
+            var schemaName = "dbo";
+            var tableName = "testtable";
+            DropAndCreateTestTable(schemaName, tableName, "[col1manual] int, [col2withdefault] varchar(200)");
+            var columns = new string[0];
+            var data = new object[]
+                {
+                    null,
+                    null,
+                    null,
+                    null,
+                    null
+                };
+            var defaults = new ColumnDefaults();
+            defaults.AddDefault(new KeyValuePair<string, object>("col2withdefault", "defaultvalue"));
+
+
+            tester.InsertData(schemaName, tableName, columns, data, defaults);
+
+
+            var results = tester.ExecuteStatementWithResult(string.Format("select * from {0}.{1};", schemaName, tableName));
+            var actualCount = results.Tables[0].Rows.Count;
+            Assert.AreEqual(expectedCount, actualCount);
+        }
+
+        [TestMethod]
         public void Inserting_Data_Correctly_Handles_Single_Quotes()
         {
             var expectedValue = "Hello, 'World'.";

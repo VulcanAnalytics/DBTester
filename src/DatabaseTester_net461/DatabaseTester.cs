@@ -112,9 +112,11 @@ namespace VulcanAnalytics.DBTester
         private Dictionary<string, object> ColumnsWithDefaultsAdded(Object[] columns, ColumnDefaults defaults)
         {
             var combinedColumns = new Dictionary<string, object>();
-            foreach (string c in columns)
-            {
+            if (columns != null) {
+                foreach (string c in columns)
+                {
                     combinedColumns.Add(c, "ColumnInData");
+                }
             }
             foreach (KeyValuePair<string, object> d in defaults)
             {
@@ -140,9 +142,16 @@ namespace VulcanAnalytics.DBTester
             while (i < columnsWithDefaultsAdded.Count)
             {
                 object value = null;
-                if (row.Length > i)
+                if (row != null)
                 {
-                    value = row[i];
+                    if (row.Length > i)
+                    {
+                        value = row[i];
+                    }
+                    else
+                    {
+                        value = defaults[i];
+                    }
                 }
                 else
                 {
