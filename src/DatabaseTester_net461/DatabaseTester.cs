@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using VulcanAnalytics.DBTester.Exceptions;
 
 namespace VulcanAnalytics.DBTester
 {
@@ -27,6 +28,15 @@ namespace VulcanAnalytics.DBTester
 
         public void InsertData(string schemaName, string objectName, string[] columns, Object[] data)
         {
+            if (columns.Length == 0)
+            {
+                throw new NoColumnsToInsert();
+            }
+            if (data.Length == 0)
+            {
+                throw new NoRowsToInsert();
+            }
+
             string sqlColumns = SqlColumns(columns);
 
             foreach (Object[] row in data)
@@ -37,6 +47,11 @@ namespace VulcanAnalytics.DBTester
 
         public void InsertData(string schemaName, string objectName, string[] columns, Object[] data, ColumnDefaults defaults)
         {
+            if (data.Length == 0)
+            {
+                throw new NoRowsToInsert();
+            }
+
             var columnsWithDefaultsAdded = ColumnsWithDefaultsAdded(columns,defaults);
 
             var sqlColumns = SqlColumns(columnsWithDefaultsAdded);
@@ -112,9 +127,11 @@ namespace VulcanAnalytics.DBTester
         private Dictionary<string, object> ColumnsWithDefaultsAdded(Object[] columns, ColumnDefaults defaults)
         {
             var combinedColumns = new Dictionary<string, object>();
-            foreach (string c in columns)
-            {
+            if (columns != null) {
+                foreach (string c in columns)
+                {
                     combinedColumns.Add(c, "ColumnInData");
+                }
             }
             foreach (KeyValuePair<string, object> d in defaults)
             {
@@ -126,6 +143,11 @@ namespace VulcanAnalytics.DBTester
                 {
                 combinedColumns.Add(d.Key, d.Value);
                 }
+            }
+
+            if (combinedColumns.Count == 0)
+            {
+                throw new NoColumnsToInsert();
             }
 
             return combinedColumns;
@@ -140,9 +162,16 @@ namespace VulcanAnalytics.DBTester
             while (i < columnsWithDefaultsAdded.Count)
             {
                 object value = null;
-                if (row.Length > i)
+                if (row != null)
                 {
-                    value = row[i];
+                    if (row.Length > i)
+                    {
+                        value = row[i];
+                    }
+                    else
+                    {
+                        value = defaults[i];
+                    }
                 }
                 else
                 {
