@@ -10,6 +10,7 @@
     <tags>database testing test framework mssql sql server microsoft unit integration helper tdd c# acceptance mstest nunit xunit tester db vulcan analytics</tags>
     <projectUrl>https://github.com/VulcanAnalytics/DBTester/wiki</projectUrl>
     <licenseUrl>https://github.com/VulcanAnalytics/DBTester/blob/master/LICENSE</licenseUrl>
+    <iconUrl>https://github.com/VulcanAnalytics/DBTester/blob/master/DBTester.logo.jpg?raw=true</iconUrl>
 
     <releaseNotes>
       Enhanced InsertData method
