@@ -12,6 +12,12 @@ namespace VulcanAnalytics.DBTester.dbSpecflow_tests
         private Type databasetesterType = typeof(DatabaseTester);
 
         [TestMethod]
+        public void DatabaseTesterClass()
+        {
+            VulcanAnalytics.DBTester.DatabaseTester tester = null;
+        }
+
+        [TestMethod]
         public void HasMethodHasTable()
         {
             var methodName = "HasTable";

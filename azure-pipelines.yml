@@ -64,19 +64,19 @@ steps:
 
 - task: CopyFiles@2
 
-  displayName: 'Copy Files to: $(build.artifactstagingdirectory)/lib/net40'
+  displayName: 'Copy Files to: $(build.artifactstagingdirectory)/lib/net461'
 
   inputs:
 
-    SourceFolder: 'src/DatabaseTester_net40/bin/x86/Release'
+    SourceFolder: 'src/DatabaseTester_net461/bin/x86/Release'
 
 
 
-    Contents: 'VulcanAnalytics.DBTester.dll'
+    Contents: 'VulcanAnalytics.DBTester.*'
 
 
 
-    TargetFolder: '$(build.artifactstagingdirectory)/lib/net40/'
+    TargetFolder: '$(build.artifactstagingdirectory)/lib/net461/'
 
 
 
