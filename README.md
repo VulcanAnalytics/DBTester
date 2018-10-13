@@ -54,11 +54,12 @@ In previous implementations there have been functionality for interacting with S
 My roadmap for DBTester is to work towards a minimally functional yet stable release for version 1.0.0.
 
 A few of the key aspects to have in place are;
-* high test coverage of the library
-* continuous integration and delivery
-* clear documentation on the wiki
-* NuGet packaging
-* Abstract class to support extensions for other databases/techniques
+- [x] high test coverage of the library
+- [x] continuous integration and delivery
+- [ ] clear documentation on the wiki
+- [x] NuGet packaging
+- [ ] Abstract class to support extensions for other databases/techniques
+- [ ] Basic implementation of another database as proof of concept
 
 Much of this is already in place via Microsoft DevOps (formally Visual Studio Team Services)
 
@@ -79,6 +80,8 @@ If you're running into problems, please file an issue here on GitHub at the top 
 ### License, etc.
 
 DBTester source code is Copyright &copy; 2018 Darren Comeau and other contributors under the [GNU GPLv3 License](LICENSE.txt).
+
+If you have any questions regarding the license please [refer to this issue](https://github.com/VulcanAnalytics/DBTester/issues/11) and feel free to get in touch.
 
 ### My promise to you.
 
