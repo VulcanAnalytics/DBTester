@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>VulcanAnalytics.DBTester</id>
-    <version>0.9.0.0000-alpha</version>
+    <version>0.10.0.0000-alpha</version>
     <authors>Darren Edward Comeau</authors>
     <owners>Darren Edward Comeau</owners>
     <title>Database Testing Library</title>
@@ -13,9 +13,10 @@
     <iconUrl>https://github.com/VulcanAnalytics/DBTester/blob/master/DBTester.logo.jpg?raw=true</iconUrl>
 
     <releaseNotes>
-      Enhanced InsertData method
-      * can specify empty rows with defaults and only the default values will be inserted
-      * more error handling when not enough information provided.
+      ** Potentially breaking change **
+      Now built for version 4.0 of the .NET framework, should be more compatible with everyone's projects.
+      Other clean up of the NuGet package including logo and dependancy updates.
+      Clarified license question and updates to 1.0 roadmap goals in README.md
     </releaseNotes>
 
     <repository type="git" url="https://github.com/VulcanAnalytics/DBTester.git" />
