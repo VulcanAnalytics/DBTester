@@ -2,9 +2,9 @@
 
 [![NuGet](https://img.shields.io/nuget/v/VulcanAnalytics.DBTester.svg)](https://www.nuget.org/packages/VulcanAnalytics.DBTester)
 
-[![version][version-badge]][CHANGELOG]
+[![Changelog][version-badge]][CHANGELOG]
 
-[![license][license-badge]][LICENSE]
+[![License][license-badge]][LICENSE]
 
 [![Join the chat at https://gitter.im/VulcanAnalytics-DBTester/Lobby](https://badges.gitter.im/VulcanAnalytics-DBTester/Lobby.svg)](https://gitter.im/VulcanAnalytics-DBTester/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
@@ -103,5 +103,5 @@ Here are a couple of notes about how this project will be maintained;
 [CHANGELOG]: ./CHANGELOG.md
 [LICENSE]: ./LICENSE
 
-[version-badge]: https://img.shields.io/badge/version-0.10.0.alpha-yellow.svg
+[version-badge]: https://img.shields.io/badge/version-v0.10.0.alpha-yellow.svg
 [license-badge]: https://img.shields.io/badge/license-GPLv3-blue.svg
