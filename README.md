@@ -99,3 +99,6 @@ Here are a couple of notes about how this project will be maintained;
 * Release notes will include clear details of the changes based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 * Major releases will not be so frequent as to force you to keep reworking your own projects.
 * Major releases will also be supported with bug fixes and new minor features for as long as possible.
+
+[CHANGELOG]: ./CHANGELOG.md
+[LICENSE]: ./LICENSE
