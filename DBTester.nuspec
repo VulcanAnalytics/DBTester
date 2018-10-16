@@ -10,13 +10,16 @@
     <tags>database testing test framework mssql sql server microsoft unit integration helper tdd c# acceptance mstest nunit xunit tester db vulcan analytics</tags>
     <projectUrl>https://github.com/VulcanAnalytics/DBTester/wiki</projectUrl>
     <licenseUrl>https://github.com/VulcanAnalytics/DBTester/blob/master/LICENSE</licenseUrl>
-    <iconUrl>https://github.com/VulcanAnalytics/DBTester/blob/master/DBTester.logo.jpg?raw=true</iconUrl>
+    <iconUrl>https://raw.githubusercontent.com/VulcanAnalytics/DBTester/master/DBTester.logo.jpg</iconUrl>
+    <copyright>© Darren Comeau. All rights reserved.</copyright>
 
     <releaseNotes>
       ** Potentially breaking change **
       Now built for version 4.0 of the .NET framework, should be more compatible with everyone's projects.
       Other clean up of the NuGet package including logo and dependancy updates.
       Clarified license question and updates to 1.0 roadmap goals in README.md
+
+      Full [changelog](https://github.com/VulcanAnalytics/DBTester/blob/master/CHANGELOG.md)
     </releaseNotes>
 
     <repository type="git" url="https://github.com/VulcanAnalytics/DBTester.git" />
