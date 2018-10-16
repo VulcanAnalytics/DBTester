@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>VulcanAnalytics.DBTester</id>
-    <version>0.10.0.0000-alpha</version>
+    <version>1.0.0-beta</version>
     <authors>Darren Edward Comeau</authors>
     <owners>Darren Edward Comeau</owners>
     <title>Database Testing Library</title>
@@ -14,10 +14,9 @@
     <copyright>© Darren Comeau. All rights reserved.</copyright>
 
     <releaseNotes>
-      ** Potentially breaking change **
-      Now built for version 4.0 of the .NET framework, should be more compatible with everyone's projects.
-      Other clean up of the NuGet package including logo and dependancy updates.
-      Clarified license question and updates to 1.0 roadmap goals in README.md
+      Beta Release
+
+      Last new method for v1.0.0, ObjectData added.
 
       Full [changelog](https://github.com/VulcanAnalytics/DBTester/blob/master/CHANGELOG.md)
     </releaseNotes>

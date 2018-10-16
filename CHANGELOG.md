@@ -6,12 +6,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 ### Added
-- `ObjectData` method retrieves all rows and columns from a table or view [@darrencomeau](https://github.com/VulcanAnalytics/DBTester/issues/16)
 ### Changed
 ### Deprecated
 ### Removed
 ### Fixed
 ### Security
+
+## [1.0.0-beta] - 2018-10-16
+
+### Added
+- `ObjectData` method retrieves all rows and columns from a table or view [@darrencomeau](https://github.com/VulcanAnalytics/DBTester/issues/16)
+### Fixed
+- License link in README file
 
 ## [0.10.0-alpha] - 2018-10-13
 
