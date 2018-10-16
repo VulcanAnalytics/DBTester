@@ -103,5 +103,5 @@ Here are a couple of notes about how this project will be maintained;
 [CHANGELOG]: ./CHANGELOG.md
 [LICENSE]: ./LICENSE
 
-[version-badge]: https://img.shields.io/badge/version-1.0.0-blue.svg
+[version-badge]: https://img.shields.io/badge/version-0.10.0-blue.svg
 [license-badge]: https://img.shields.io/badge/license-GPLv3-blue.svg
