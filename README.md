@@ -1,5 +1,7 @@
 # DBTester
 
+[![Join the chat at https://gitter.im/VulcanAnalytics-DBTester/Lobby](https://badges.gitter.im/VulcanAnalytics-DBTester/Lobby.svg)](https://gitter.im/VulcanAnalytics-DBTester/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 ### What is DBTester?
 
 DBTester is a testing framework library built to remove the need for database plumbing and repetitive code for performing utility actions from one test project to the next. Afterall why copy and paste the same database code from one project to the next, or worse still, write it out again?
