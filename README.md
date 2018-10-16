@@ -49,6 +49,7 @@ This list of methods is short today, but increasing (as the database projects I'
 * [DropTable](https://github.com/VulcanAnalytics/DBTester/wiki/DropTable)
 * [RowCount](https://github.com/VulcanAnalytics/DBTester/wiki/RowCount)
 * [InsertData](https://github.com/VulcanAnalytics/DBTester/wiki/InsertData)
+* [ObjectData](https://github.com/VulcanAnalytics/DBTester/wiki/ObjectData)
 * [ExecuteStatementWithoutResult](https://github.com/VulcanAnalytics/DBTester/wiki/ExecuteStatementWithoutResult)
 * [ExecuteStatementWithResult](https://github.com/VulcanAnalytics/DBTester/wiki/ExecuteStatementWithResult)
 
@@ -66,7 +67,7 @@ A few of the key aspects to have in place are;
 - [x] continuous integration and delivery
 - [x] clear documentation on the wiki
 - [x] NuGet packaging
-- [ ] Abstract class to support extensions for other databases/techniques
+- [x] Abstract class to support extensions for other databases/techniques
 - [ ] Basic implementation of another database as proof of concept
 
 Much of this is already in place via Microsoft DevOps (formally Visual Studio Team Services)
@@ -87,7 +88,7 @@ If you're running into problems, please file an issue here on GitHub at the top 
 
 ### License, etc.
 
-DBTester source code is Copyright &copy; 2018 Darren Comeau and other contributors under the [GNU GPLv3 License](LICENSE.txt).
+DBTester source code is Copyright &copy; 2018 Darren Comeau and other contributors under the [GNU GPLv3 License](LICENSE).
 
 If you have any questions regarding the license please [refer to this issue](https://github.com/VulcanAnalytics/DBTester/issues/11) and feel free to get in touch.
 
@@ -103,5 +104,5 @@ Here are a couple of notes about how this project will be maintained;
 [CHANGELOG]: ./CHANGELOG.md
 [LICENSE]: ./LICENSE
 
-[version-badge]: https://img.shields.io/badge/version-v0.10.0.alpha-yellow.svg
+[version-badge]: https://img.shields.io/badge/version-v1.0.0.beta-yellow.svg
 [license-badge]: https://img.shields.io/badge/license-GPLv3-blue.svg

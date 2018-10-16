@@ -155,6 +155,7 @@
     <Compile Include="ColumnDefaults.cs" />
     <Compile Include="DatabaseTester.cs" />
     <Compile Include="Exceptions\ChildTablesReferenceThisTable.cs" />
+    <Compile Include="Exceptions\ObjectNotFound.cs" />
     <Compile Include="Exceptions\NoRowsToInsert.cs" />
     <Compile Include="Exceptions\NoColumnsToInsert.cs" />
     <Compile Include="Exceptions\ChildTablesWithDataReferenceThisTable.cs" />
