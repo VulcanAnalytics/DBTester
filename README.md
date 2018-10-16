@@ -1,5 +1,11 @@
 # DBTester
 
+[![NuGet](https://img.shields.io/nuget/v/VulcanAnalytics.DBTester.svg)](https://www.nuget.org/packages/VulcanAnalytics.DBTester)
+
+[![version][version-badge]][CHANGELOG]
+
+[![license][license-badge]][LICENSE]
+
 [![Join the chat at https://gitter.im/VulcanAnalytics-DBTester/Lobby](https://badges.gitter.im/VulcanAnalytics-DBTester/Lobby.svg)](https://gitter.im/VulcanAnalytics-DBTester/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 ### What is DBTester?
@@ -37,14 +43,14 @@ Assert.IsTrue(hasTable);
 And there we have it, no need to decide on how to use various other database libraries or SQL scripts, just one succint place to come to for database testing utilities.
 
 This list of methods is short today, but increasing (as the database projects I'm currently working on requires further unit testing).
-* HasSchema
-* HasTable
+* [HasSchema](https://github.com/VulcanAnalytics/DBTester/wiki/HasSchema)
+* [HasTable](https://github.com/VulcanAnalytics/DBTester/wiki/HasTable)
 * [ClearTable](https://github.com/VulcanAnalytics/DBTester/wiki/ClearTable)
 * [DropTable](https://github.com/VulcanAnalytics/DBTester/wiki/DropTable)
 * [RowCount](https://github.com/VulcanAnalytics/DBTester/wiki/RowCount)
 * [InsertData](https://github.com/VulcanAnalytics/DBTester/wiki/InsertData)
-* ExecuteStatementWithoutResult
-* ExecuteStatementWithResult
+* [ExecuteStatementWithoutResult](https://github.com/VulcanAnalytics/DBTester/wiki/ExecuteStatementWithoutResult)
+* [ExecuteStatementWithResult](https://github.com/VulcanAnalytics/DBTester/wiki/ExecuteStatementWithResult)
 
 ### Where did this come from?
 
@@ -58,7 +64,7 @@ My roadmap for DBTester is to work towards a minimally functional yet stable rel
 A few of the key aspects to have in place are;
 - [x] high test coverage of the library
 - [x] continuous integration and delivery
-- [ ] clear documentation on the wiki
+- [x] clear documentation on the wiki
 - [x] NuGet packaging
 - [ ] Abstract class to support extensions for other databases/techniques
 - [ ] Basic implementation of another database as proof of concept
@@ -90,6 +96,6 @@ If you have any questions regarding the license please [refer to this issue](htt
 Here are a couple of notes about how this project will be maintained;
 * Bugs will always come first, when you report a bug it will be the priority. Hopefully that will mean a rapid bug fix release, else advice on a work around and an estimate for which release the fix will be in.
 * [Semantic Versioning](https://semver.org/) will be practiced religiously. You should always be confident that updating to the latest bug or minor release won't cause you an issue.
-* Release notes will include clear details of the changes.
+* Release notes will include clear details of the changes based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 * Major releases will not be so frequent as to force you to keep reworking your own projects.
 * Major releases will also be supported with bug fixes and new minor features for as long as possible.
