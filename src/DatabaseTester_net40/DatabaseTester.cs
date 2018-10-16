@@ -64,6 +64,22 @@ namespace VulcanAnalytics.DBTester
             }
         }
 
+        public DataTable ObjectData(string schemaName, string tableName)
+        {
+            if (!HasTable(schemaName,tableName))
+            {
+                var message = string.Format("Couldn't find the object {0}.{1} in the database.", schemaName, tableName);
+                throw new ObjectNotFound(message);
+            }
+
+            var sqlStatement = string.Format("select * from {0}.{1};",schemaName,tableName);
+
+            var results = this.ExecuteStatementWithResult(sqlStatement);
+
+            var table = results.Tables[0];
+
+            return table;
+        }
 
         #region Private Methods
 

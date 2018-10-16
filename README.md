@@ -49,6 +49,7 @@ This list of methods is short today, but increasing (as the database projects I'
 * [DropTable](https://github.com/VulcanAnalytics/DBTester/wiki/DropTable)
 * [RowCount](https://github.com/VulcanAnalytics/DBTester/wiki/RowCount)
 * [InsertData](https://github.com/VulcanAnalytics/DBTester/wiki/InsertData)
+* [ObjectData](https://github.com/VulcanAnalytics/DBTester/wiki/ObjectData)
 * [ExecuteStatementWithoutResult](https://github.com/VulcanAnalytics/DBTester/wiki/ExecuteStatementWithoutResult)
 * [ExecuteStatementWithResult](https://github.com/VulcanAnalytics/DBTester/wiki/ExecuteStatementWithResult)
 
