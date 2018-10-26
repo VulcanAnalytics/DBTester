@@ -18,6 +18,15 @@ namespace VulcanAnalytics.DBTester.dbSpecflow_tests.DatabaseTester_Tests
         public void ColumnDefaults_When_Assigned_Is_Not_Empty()
         {
             var columnDefaults = new ColumnDefaults();
+            columnDefaults.Add("Hello", "World");
+
+            Assert.IsFalse(columnDefaults.IsEmpty);
+        }
+
+        [TestMethod]
+        public void ColumnDefaults_When_Assigned_Is_Not_Empty_DeprecatedVersion()
+        {
+            var columnDefaults = new ColumnDefaults();
             columnDefaults.AddDefault(new KeyValuePair<string, object>("Hello", "World"));
 
             Assert.IsFalse(columnDefaults.IsEmpty);
@@ -29,6 +38,21 @@ namespace VulcanAnalytics.DBTester.dbSpecflow_tests.DatabaseTester_Tests
             var columnDefaults = new ColumnDefaults();
 
             var columnDefault = new KeyValuePair<string,object>("Hello","World");
+
+            columnDefaults.Add(columnDefault);
+
+            foreach (var defaultColumn in columnDefaults)
+            {
+                Assert.AreEqual(columnDefault, defaultColumn);
+            }
+        }
+
+        [TestMethod]
+        public void I_Can_Add_And_Retrieve_A_Column_Value_Pair_DeprecatedVersion()
+        {
+            var columnDefaults = new ColumnDefaults();
+
+            var columnDefault = new KeyValuePair<string, object>("Hello", "World");
 
             columnDefaults.AddDefault(columnDefault);
 
@@ -47,7 +71,7 @@ namespace VulcanAnalytics.DBTester.dbSpecflow_tests.DatabaseTester_Tests
             while (i < expectedCount)
             {
                 var keyString = string.Format("Hello {0}", i);
-                columnDefaults.AddDefault(new KeyValuePair<string, object>(keyString, "World"));
+                columnDefaults.Add(keyString, "World");
                 i++;
             }
 
@@ -64,15 +88,28 @@ namespace VulcanAnalytics.DBTester.dbSpecflow_tests.DatabaseTester_Tests
 
         [ExpectedException(typeof(VulcanAnalytics.DBTester.Exceptions.ColumnDefaultAlreadyAdded))]
         [TestMethod]
-        public void I_Cannot_Add_Duplicate_Column_Value_Pair()
+        public void I_Cannot_Add_Duplicate_Column_Value_Pair_With_StringObject_Sig()
         {
             var columnDefaults = new ColumnDefaults();
 
             var columnDefault = new KeyValuePair<string, object>("Hello", "World");
 
-            columnDefaults.AddDefault(columnDefault);
+            columnDefaults.Add(columnDefault);
 
-            columnDefaults.AddDefault(columnDefault);
+            columnDefaults.Add("Hello", "World");
+        }
+
+        [ExpectedException(typeof(VulcanAnalytics.DBTester.Exceptions.ColumnDefaultAlreadyAdded))]
+        [TestMethod]
+        public void I_Cannot_Add_Duplicate_Column_Value_Pair_With_KeyValuePair_Sig()
+        {
+            var columnDefaults = new ColumnDefaults();
+
+            var columnDefault = new KeyValuePair<string, object>("Hello", "World");
+
+            columnDefaults.Add("Hello", "World");
+
+            columnDefaults.Add(columnDefault);
         }
     }
 }

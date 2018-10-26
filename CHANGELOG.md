@@ -6,8 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 ### Added
+- `Add` method for `ColumnDefaults` object which is a simplification of the `AddDefault` method [@darrencomeau](https://github.com/VulcanAnalytics/DBTester/issues/47)
 ### Changed
 ### Deprecated
+- `AddDefault` method for `ColumnDefaults` object which has been been replaced by the simpler `Add` method [@darrencomeau](https://github.com/VulcanAnalytics/DBTester/issues/47)
 ### Removed
 ### Fixed
 ### Security
