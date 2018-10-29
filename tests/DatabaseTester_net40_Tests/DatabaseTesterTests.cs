@@ -127,7 +127,7 @@ namespace VulcanAnalytics.DBTester.dbSpecflow_tests
 
             // Set the defaults for the insert
             var defaults = new ColumnDefaults();
-            defaults.AddDefault(new KeyValuePair<string, object>("ModifiedBy", "DarrenComeau"));
+            defaults.Add("ModifiedBy", "DarrenComeau");
 
             // Parameters for InsertData method
             var schemaName = "dbo";
@@ -156,7 +156,7 @@ namespace VulcanAnalytics.DBTester.dbSpecflow_tests
 
             // Set the defaults for the insert
             var defaults = new ColumnDefaults();
-            defaults.AddDefault(new KeyValuePair<string, object>("ModifiedBy", "DarrenComeau"));
+            defaults.Add("ModifiedBy", "DarrenComeau");
 
             // Parameters for InsertData method
             var schemaName = "dbo";
