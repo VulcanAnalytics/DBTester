@@ -32,7 +32,7 @@ steps:
 
   inputs:
 
-    platform: x86
+    platform: Any CPU
 
 
 
@@ -68,7 +68,7 @@ steps:
 
   inputs:
 
-    SourceFolder: 'src/DatabaseTester_net40/bin/x86/Release'
+    SourceFolder: 'src/DatabaseTester_net40/bin/Release'
 
 
 
