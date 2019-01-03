@@ -53,21 +53,37 @@ namespace VulcanAnalytics.DBTester
 
         public override void ClearTable(string schemaName, string tableName)
         {
-            if (this.database.Tables.Contains(tableName, schemaName))
-            if (!IsReferencedByForeignKeys(schemaName,tableName))
-                this.database.Tables[tableName, schemaName].TruncateData();
-            else
+                try
                 {
-                    var deleteStatement = string.Format("delete from {0}.{1}", schemaName, tableName);
-                    try
-                    {
-                        ExecuteStatementWithoutResult(deleteStatement);
-                    }
-                    catch (Exception e)
-                    {
-                        throw new ChildTablesWithDataReferenceThisTable("Failed to clear table, is there another table with data referencing this table?", e);
-                    }
+                    DeleteOrTruncateTable(schemaName, tableName);
                 }
+                catch (Exception e)
+                {
+                    throw new ChildTablesWithDataReferenceThisTable("Failed to clear table, is there another table with data referencing this table?", e);
+                }
+        }
+
+        private void DeleteOrTruncateTable(string schemaName, string tableName)
+        {
+            try
+            {
+                TruncateTable(schemaName,tableName);
+            }
+            catch
+            {
+                DeleteTable(schemaName, tableName);
+            }
+        }
+
+        private void TruncateTable(string schemaName, string tableName)
+        {
+            this.database.Tables[tableName, schemaName].TruncateData();
+        }
+
+        private void DeleteTable(string schemaName, string tableName)
+        {
+            var deleteStatement = string.Format("delete from {0}.{1}", schemaName, tableName);
+            ExecuteStatementWithoutResult(deleteStatement);
         }
 
         private bool IsReferencedByForeignKeys(string schemaName, string tableName)
