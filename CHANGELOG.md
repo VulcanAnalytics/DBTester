@@ -6,12 +6,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 ### Added
+### Changed
+### Deprecated
+### Removed
+### Fixed
+### Security
+
+## [1.0.0-beta2] - 2019-01-03
+### Added
 - `Add` method for `ColumnDefaults` object which is a simplification of the `AddDefault` method [@darrencomeau](https://github.com/VulcanAnalytics/DBTester/issues/47)
 ### Changed
 ### Deprecated
 - `AddDefault` method for `ColumnDefaults` object which has been been replaced by the simpler `Add` method [@darrencomeau](https://github.com/VulcanAnalytics/DBTester/issues/47)
 ### Removed
 ### Fixed
+- `ClearData` method performance issue fixed [@darrencomeau](https://github.com/VulcanAnalytics/DBTester/issues/46)
 ### Security
 
 ## [1.0.0-beta] - 2018-10-16

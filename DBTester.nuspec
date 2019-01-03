@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>VulcanAnalytics.DBTester</id>
-    <version>1.0.0-beta</version>
+    <version>1.0.0-beta2</version>
     <authors>Darren Edward Comeau</authors>
     <owners>Darren Edward Comeau</owners>
     <title>Database Testing Library</title>
