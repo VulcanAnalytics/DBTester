@@ -28,7 +28,7 @@ namespace VulcanAnalytics.DBTester
                 ServerConnection conn = new ServerConnection(connection);
 
                 dbServer = new Server(conn);
-                var c = dbServer.Databases.Count;
+                var c = dbServer.Databases.Count; //ensure the connection/database is valid
             }
             catch (Exception e)
             {
@@ -114,7 +114,7 @@ namespace VulcanAnalytics.DBTester
 
         public override int RowCount(string schemaName, string objectName)
         {
-            var sqlStatement = string.Format("select count(*) from {0}.{1};", schemaName, objectName);
+            var sqlStatement = string.Format("select count(*) from [{0}].[{1}];", schemaName, objectName);
 
             var results = database.ExecuteWithResults(sqlStatement);
 
