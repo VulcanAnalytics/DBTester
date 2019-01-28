@@ -82,7 +82,7 @@ namespace VulcanAnalytics.DBTester
 
         private void DeleteTable(string schemaName, string tableName)
         {
-            var deleteStatement = string.Format("delete from {0}.{1}", schemaName, tableName);
+            var deleteStatement = string.Format("delete from [{0}].[{1}]", schemaName, tableName);
             ExecuteStatementWithoutResult(deleteStatement);
         }
 
