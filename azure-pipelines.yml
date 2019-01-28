@@ -88,7 +88,7 @@ steps:
 
   inputs:
 
-    SourceFolder: 'src/DatabaseTester_netstandard20/bin/Release/net46'
+    SourceFolder: 'src/DatabaseTester_standard20/bin/Release/net46'
 
 
 
@@ -108,7 +108,7 @@ steps:
 
   inputs:
 
-    SourceFolder: 'src/DatabaseTester_netstandard20/bin/Release/netstandard2.0'
+    SourceFolder: 'src/DatabaseTester_standard20/bin/Release/netstandard2.0'
 
 
 
