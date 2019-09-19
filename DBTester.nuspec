@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>VulcanAnalytics.DBTester</id>
-    <version>1.0.0-beta3</version>
+    <version>1.0.0-beta2</version>
     <authors>Darren Edward Comeau</authors>
     <owners>Darren Edward Comeau</owners>
     <title>Database Testing Library</title>
@@ -14,10 +14,9 @@
     <copyright>© Darren Comeau. All rights reserved.</copyright>
 
     <releaseNotes>
-      Beta Release 3
+      Beta Release
 
-      Fixed RowCount and ClearTable errors for objects with spaces in their name
-      Added .net Standard 2.0 support
+      Last new method for v1.0.0, ObjectData added.
 
       Full [changelog](https://github.com/VulcanAnalytics/DBTester/blob/master/CHANGELOG.md)
     </releaseNotes>
@@ -29,10 +28,7 @@
     </packageTypes>
 
     <dependencies>
-      <group targetFramework="net46">
-        <dependency id="Microsoft.SqlServer.SqlManagementObjects" version="140.17283.0" />
-      </group>
-      <group targetFramework="netstandard2.0">
+      <group targetFramework="net40">
         <dependency id="Microsoft.SqlServer.SqlManagementObjects" version="140.17283.0" />
       </group>
     </dependencies>

@@ -196,14 +196,15 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <WCFMetadata Include="Connected Services\" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\src\DatabaseTester_standard20\DatabaseTester_standard20.csproj">
-      <Project>{5e925f8e-2c97-4c4d-a3c4-1039d3fe001f}</Project>
-      <Name>DatabaseTester_standard20</Name>
+    <ProjectReference Include="..\..\src\DatabaseTester_net40\DatabaseTester_net40.csproj">
+      <Project>{83de582a-0798-4ed1-bfca-3df185699300}</Project>
+      <Name>DatabaseTester_net40</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

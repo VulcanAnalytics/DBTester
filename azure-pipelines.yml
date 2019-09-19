@@ -84,46 +84,6 @@ steps:
 
 - task: CopyFiles@2
 
-  displayName: 'Copy Files to: $(build.artifactstagingdirectory)/lib/net46'
-
-  inputs:
-
-    SourceFolder: 'src/DatabaseTester_netstandard20/bin/x86/Release/net46'
-
-
-
-    Contents: 'VulcanAnalytics.DBTester.dll'
-
-
-
-    TargetFolder: '$(build.artifactstagingdirectory)/lib/net46/'
-
-
-
-
-
-- task: CopyFiles@2
-
-  displayName: 'Copy Files to: $(build.artifactstagingdirectory)/lib/netstandard2.0'
-
-  inputs:
-
-    SourceFolder: 'src/DatabaseTester_netstandard20/bin/x86/Release/netstandard2.0'
-
-
-
-    Contents: 'VulcanAnalytics.DBTester.dll'
-
-
-
-    TargetFolder: '$(build.artifactstagingdirectory)/lib/netstandard2.0/'
-
-
-
-    
-
-- task: CopyFiles@2
-
   displayName: 'Copy Files to: $(build.artifactstagingdirectory)'
 
   inputs:
