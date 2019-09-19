@@ -25,6 +25,8 @@ namespace VulcanAnalytics.DBTester
 
         public abstract DataSet ExecuteStatementWithResult(string sqlStatement);
 
+        protected abstract string QuotedIdentifier(string identifier);
+
 
         public void InsertData(string schemaName, string objectName, string[] columns, Object[] data)
         {
@@ -135,9 +137,25 @@ namespace VulcanAnalytics.DBTester
 
         private string SqlColumns(Object[] columns)
         {
-            string sqlColumns = ArrayAsTemplatedString(columns, "{0}", ",");
+            object[] quotedColumns = QuotedColumns(columns);
+
+            string sqlColumns = ArrayAsTemplatedString(quotedColumns, "{0}", ",");
 
             return sqlColumns;
+        }
+
+        private object[] QuotedColumns(object[] columns)
+        {
+            var quotedColumns = new object[columns.Length];
+
+            var n = 0;
+            while (n < columns.Length)
+            {
+                quotedColumns[n] = QuotedIdentifier(columns[n].ToString());
+                n++;
+            }
+
+            return quotedColumns;
         }
 
         private Dictionary<string, object> ColumnsWithDefaultsAdded(Object[] columns, ColumnDefaults defaults)
@@ -223,11 +241,24 @@ namespace VulcanAnalytics.DBTester
             return arrayString;
         }
 
-        private string SqlInsertStatement(string schemaName, string objectName, string sqlColumns, string sqlValues)
+        private string SqlInsertStatement
+            (
+            string schemaName,
+            string objectName,
+            string sqlColumns,
+            string sqlValues
+            )
         {
             string template = "insert into {0}.{1}({2}) values({3});";
 
-            var statement = string.Format(template, schemaName, objectName, sqlColumns, sqlValues);
+            var statement = string.Format
+                (
+                template,
+                QuotedIdentifier(schemaName),
+                QuotedIdentifier(objectName),
+                sqlColumns,
+                sqlValues
+                );
 
             return statement;
         }

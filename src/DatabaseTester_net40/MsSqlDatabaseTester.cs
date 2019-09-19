@@ -125,7 +125,18 @@ namespace VulcanAnalytics.DBTester
 
         public override void ExecuteStatementWithoutResult(string sqlStatement)
         {
-            database.ExecuteNonQuery(sqlStatement);
+            try
+            {
+                database.ExecuteNonQuery(sqlStatement);
+            }
+            catch (Exception e)
+            {
+                var message = string.Format("Unable to execute SQL statement - {0}", sqlStatement);
+
+                var exception = new Exception(message, e);
+
+                throw exception;
+            }
         }
 
         public override DataSet ExecuteStatementWithResult(string sqlStatement)
@@ -137,6 +148,11 @@ namespace VulcanAnalytics.DBTester
                 throw new StatementReturnedNoTables(errorMessage);
             }
             return results;
+        }
+
+        protected override string QuotedIdentifier(string identifier)
+        {
+            return string.Format("[{0}]",identifier);
         }
     }
 }
