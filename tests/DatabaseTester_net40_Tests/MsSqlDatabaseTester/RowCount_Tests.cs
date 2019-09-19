@@ -42,7 +42,7 @@ namespace VulcanAnalytics.DBTester.dbSpecflow_tests.MsSqlDatabaseTester
             var tableName = "My Space Table";
             CreateAndPopulateTable(schemaName, tableName, 5);
 
-            var actualCount = tester.RowCount(schemaName, viewName);
+            var actualCount = tester.RowCount(schemaName, tableName);
 
             Assert.AreEqual(5, actualCount);
         }

@@ -10,6 +10,12 @@ namespace VulcanAnalytics.DBTester.dbSpecflow_tests.DatabaseTester_Tests
         private const string connectionString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=tempdb;Integrated Security=SSPI;";
         private DatabaseTester tester = new Mocks.MockDatabaseTester(connectionString);
 
+        [TestInitialize]
+        public void Initialize()
+        {
+            DropTable("dbo", "testtable");
+        }
+
         [TestMethod]
         public void ObjectData_Retrieves_All_Rows_From_Table()
         {
