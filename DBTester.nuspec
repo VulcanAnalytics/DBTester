@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>VulcanAnalytics.DBTester</id>
-    <version>1.0.0-beta2</version>
+    <version>1.0.0-beta4</version>
     <authors>Darren Edward Comeau</authors>
     <owners>Darren Edward Comeau</owners>
     <title>Database Testing Library</title>
@@ -15,8 +15,15 @@
 
     <releaseNotes>
       Beta Release
-
-      Last new method for v1.0.0, ObjectData added.
+      
+      ### Added
+      ### Changed
+      ### Deprecated
+      ### Removed
+      ### Fixed
+      - `RowCount` method handles object names with spaces in [@darrencomeau](https://github.com/VulcanAnalytics/DBTester/issues/49)
+      - `ClearTable` method handles object names with spaces in [@darrencomeau](https://github.com/VulcanAnalytics/DBTester/issues/51)
+      ### Security
 
       Full [changelog](https://github.com/VulcanAnalytics/DBTester/blob/master/CHANGELOG.md)
     </releaseNotes>

@@ -10,6 +10,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Deprecated
 ### Removed
 ### Fixed
+ - `RowCount` method handles object names with spaces in [@darrencomeau](https://github.com/VulcanAnalytics/DBTester/issues/49)
+ - `ClearTable` method handles object names with spaces in [@darrencomeau](https://github.com/VulcanAnalytics/DBTester/issues/51)
 ### Security
 
 ## [1.0.0-beta2] - 2019-01-03
