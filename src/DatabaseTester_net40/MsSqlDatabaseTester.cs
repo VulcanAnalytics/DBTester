@@ -3,12 +3,23 @@ using Microsoft.SqlServer.Management.Smo;
 using System;
 using System.Data;
 using System.Data.SqlClient;
+using System.Globalization;
 using VulcanAnalytics.DBTester.Exceptions;
 
 namespace VulcanAnalytics.DBTester
 {
     public class MsSqlDatabaseTester : DatabaseTester
     {
+        public class DateTime2
+        {
+            public DateTime DateTime { get; internal set; }
+
+            public DateTime2(DateTime datetime)
+            {
+                this.DateTime = datetime;
+            }
+        }
+
         private SqlConnection connection = new SqlConnection();
 
         private Database database;
@@ -153,6 +164,29 @@ namespace VulcanAnalytics.DBTester
         protected override string QuotedIdentifier(string identifier)
         {
             return string.Format("[{0}]",identifier);
+        }
+
+        protected override string ConvertCellToText(object cell)
+        {
+            var objectType = cell.GetType().ToString();
+            string textData;
+
+            switch (objectType)
+            {
+                case "VulcanAnalytics.DBTester.MsSqlDatabaseTester+DateTime2":
+                    textData = ((DateTime2)cell).DateTime.ToString("yyyy-MM-dd HH:mm:ss.ffffff", DateTimeFormatInfo.InvariantInfo);
+                    break;
+
+                case "System.DateTime":
+                    textData = ((DateTime)cell).ToString("yyyy-MM-dd HH:mm:ss.fff", DateTimeFormatInfo.InvariantInfo);
+                    break;
+
+                default:
+                    textData = cell.ToString().Replace("'", "''");
+                    break;
+            }
+
+            return textData;
         }
     }
 }

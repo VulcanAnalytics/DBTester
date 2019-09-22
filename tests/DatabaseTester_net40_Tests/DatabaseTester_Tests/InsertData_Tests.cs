@@ -1,5 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.Collections.Generic;
+using System.Data;
 using VulcanAnalytics.DBTester.Exceptions;
 
 namespace VulcanAnalytics.DBTester.dbSpecflow_tests.DatabaseTester_Tests
@@ -405,6 +407,101 @@ namespace VulcanAnalytics.DBTester.dbSpecflow_tests.DatabaseTester_Tests
 
             var actualCount = tester.RowCount(schemaName, tableName);
             Assert.AreEqual(expectedCount, actualCount);
+        }
+
+        [TestMethod]
+        public void Can_Insert_DateTime_Field_Into_DateTime_Column()
+        {
+            var expectedCount = 1;
+            var schemaName = "dbo";
+            var tableName = "testtable";
+            DropAndCreateTestTable(schemaName, tableName, "[col1] datetime");
+            var columns = new string[] { "col1" };
+            var data = new object[]
+                {
+                    new object[]{new DateTime(2000,1,1)}
+                };
+
+
+            tester.InsertData(schemaName, tableName, columns, data);
+
+
+            var results = tester.ObjectData(schemaName, tableName);
+            var col1Data = results.Rows[0]["col1"].ToString();
+            var actualCount = tester.RowCount(schemaName, tableName);
+            Assert.AreEqual(expectedCount, actualCount);
+            Assert.AreEqual("01/01/2000 00:00:00", col1Data);
+        }
+
+        [TestMethod]
+        public void Can_Insert_DateTime_Field_Into_Date_Column()
+        {
+            var expectedCount = 1;
+            var schemaName = "dbo";
+            var tableName = "testtable";
+            DropAndCreateTestTable(schemaName, tableName, "[col1] date");
+            var columns = new string[] { "col1" };
+            var data = new object[]
+                {
+                    new object[]{new DateTime(2000,1,1)}
+                };
+
+
+            tester.InsertData(schemaName, tableName, columns, data);
+
+
+            var results = tester.ObjectData(schemaName, tableName);
+            var col1Data = results.Rows[0]["col1"].ToString();
+            var actualCount = tester.RowCount(schemaName, tableName);
+            Assert.AreEqual(expectedCount, actualCount);
+            Assert.AreEqual("01/01/2000 00:00:00", col1Data);
+        }
+
+        [TestMethod]
+        public void Can_Insert_DateTime_Field_Into_Time_Column()
+        {
+            var expectedCount = 1;
+            var schemaName = "dbo";
+            var tableName = "testtable";
+            DropAndCreateTestTable(schemaName, tableName, "[col1] time");
+            var columns = new string[] { "col1" };
+            var data = new object[]
+                {
+                    new object[]{new DateTime(2000,1,1,16,45,35)}
+                };
+
+
+            tester.InsertData(schemaName, tableName, columns, data);
+
+
+            var results = tester.ObjectData(schemaName, tableName);
+            var col1Data = results.Rows[0]["col1"].ToString();
+            var actualCount = tester.RowCount(schemaName, tableName);
+            Assert.AreEqual(expectedCount, actualCount);
+            Assert.AreEqual("16:45:35", col1Data);
+        }
+
+        [TestMethod]
+        public void Can_Insert_DateTime_Field_Into_DateTime2_Column()
+        {
+            var expectedCount = 1;
+            var schemaName = "dbo";
+            var tableName = "testtable";
+            DropAndCreateTestTable(schemaName, tableName, "[col1] datetime2");
+            var columns = new string[] { "col1" };
+            var data = new object[]
+                {
+                    new object[]{new DBTester.MsSqlDatabaseTester.DateTime2(new DateTime(2000,1,1,16,45,35,678).AddTicks(2340))}
+                };
+
+            tester.InsertData(schemaName, tableName, columns, data);
+
+
+            var results = tester.ObjectData(schemaName, tableName);
+            var col1Data = ((DateTime)results.Rows[0]["col1"]).ToString("dd/MM/yyyy HH:mm:ss.ffffff");
+            var actualCount = tester.RowCount(schemaName, tableName);
+            Assert.AreEqual(expectedCount, actualCount);
+            Assert.AreEqual("01/01/2000 16:45:35.678234", col1Data);
         }
 
         #region Private Methods

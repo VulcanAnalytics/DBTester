@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Globalization;
 using VulcanAnalytics.DBTester.Exceptions;
 
 namespace VulcanAnalytics.DBTester
@@ -102,17 +103,40 @@ namespace VulcanAnalytics.DBTester
             var i = 0;
             while (i < row.Length)
             {
-                if (row[i] == null)
+                var cell = row[i];
+
+                if (cell == null)
                 {
                     cleanRow[i] = "null";
                 }
                 else
                 {
-                    cleanRow[i] = string.Format("'{0}'",row[i].ToString().Replace("'", "''"));
+                    string textData;
+
+                    textData = ConvertCellToText(cell);
+
+                    cleanRow[i] = string.Format("'{0}'", textData);
                 }
                 i++;
             }
             return cleanRow;
+        }
+
+        protected virtual string ConvertCellToText(object cell)
+        {
+            string textData;
+            switch (cell.GetType().ToString())
+            {
+                case "System.DateTime":
+                    textData = ((DateTime)cell).ToString("yyyy-MM-dd HH:mm:ss.fff", DateTimeFormatInfo.InvariantInfo);
+                    break;
+
+                default:
+                    textData = cell.ToString().Replace("'", "''");
+                    break;
+            }
+
+            return textData;
         }
 
         private void TryToInsertRow(string insertStatement)
