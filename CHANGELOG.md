@@ -12,7 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 ### Security
 
-## [1.0.0-beta4] - 2019-09-22
+## [1.0.0-beta5] - 2019-09-22
 ### Added
  - `QuotedIdentifier` method will add square brackets to text so that spaces in names are handled correctly @darrencomeau
  - `UnquotedIdentifier` method will strip square brackets from text so that a quoted object can be used when these are not used/needed @darrencomeau
