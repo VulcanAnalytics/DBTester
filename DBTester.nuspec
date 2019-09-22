@@ -17,6 +17,9 @@
       Beta Release
 
       ## [1.0.0-beta4] - 2019-09-22
+      ### Added
+      - `QuotedIdentifier` method will add square brackets to text so that spaces in names are handled correctly @darrencomeau
+      - `UnquotedIdentifier` method will strip square brackets from text so that a quoted object can be used when these are not used/needed @darrencomeau
       ### Changed
       - Error message includes SQL statement for any direct or indirect calls to `ExecuteStatementWithoutResult` which fail @darrencomeau
       ### Fixed

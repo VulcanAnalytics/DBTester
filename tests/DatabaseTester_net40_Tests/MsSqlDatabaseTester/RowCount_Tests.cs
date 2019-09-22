@@ -47,6 +47,17 @@ namespace VulcanAnalytics.DBTester.dbSpecflow_tests.MsSqlDatabaseTester
             Assert.AreEqual(5, actualCount);
         }
 
+        [TestMethod]
+        public void Row_Count_Returns_Number_Of_Rows_From_Quoted_Object_With_Spaces_In_Name()
+        {
+            var tableName = "[My Space Table]";
+            CreateAndPopulateTable(schemaName, tableName, 5);
+
+            var actualCount = tester.RowCount(schemaName, tableName);
+
+            Assert.AreEqual(5, actualCount);
+        }
+
         #region Private Methods
 
         private void CreateAndPopulateTable(string schemaName, string tableName, int rowCount)
@@ -108,45 +119,45 @@ namespace VulcanAnalytics.DBTester.dbSpecflow_tests.MsSqlDatabaseTester
 
         private string DropTableSql(string schemaName, string tableName)
         {
-            var template = "drop table if exists [{0}].[{1}];";
+            var template = "drop table if exists {0}.{1};";
 
-            var sql = string.Format(template, schemaName, tableName);
+            var sql = string.Format(template, tester.QuotedIdentifier(schemaName), tester.QuotedIdentifier(tableName));
 
             return sql;
         }
 
         private string DropViewSql(string schemaName, string viewName)
         {
-            var template = "drop view if exists [{0}].[{1}];";
+            var template = "drop view if exists {0}.{1};";
 
-            var sql = string.Format(template, schemaName, viewName);
+            var sql = string.Format(template, tester.QuotedIdentifier(schemaName), tester.QuotedIdentifier(viewName));
 
             return sql;
         }
 
         private string CreateTestTableSql(string schemaName, string tableName)
         {
-            var template = "create table [{0}].[{1}]([col1] int);";
+            var template = "create table {0}.{1}([col1] int);";
 
-            var sql = string.Format(template, schemaName, tableName);
+            var sql = string.Format(template, tester.QuotedIdentifier(schemaName), tester.QuotedIdentifier(tableName));
 
             return sql;
         }
 
         private string CreateTestViewSql(string schemaName, string tableName, string viewName)
         {
-            var template = "create view [{0}].[{1}] as select [col1] from {0}.{2};";
+            var template = "create view {0}.{1} as select [col1] from {0}.{2};";
 
-            var sql = string.Format(template, schemaName, viewName, tableName);
+            var sql = string.Format(template, tester.QuotedIdentifier(schemaName), tester.QuotedIdentifier(viewName), tester.QuotedIdentifier(tableName));
 
             return sql;
         }
 
         private string InsertTestRowSql(string schemaName, string tableName)
         {
-            var template = "insert into [{0}].[{1}]([col1]) values(99);";
+            var template = "insert into {0}.{1}([col1]) values(99);";
 
-            var sql = string.Format(template, schemaName, tableName);
+            var sql = string.Format(template, tester.QuotedIdentifier(schemaName), tester.QuotedIdentifier(tableName));
 
             return sql;
         }

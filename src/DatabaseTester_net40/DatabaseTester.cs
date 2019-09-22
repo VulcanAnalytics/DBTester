@@ -26,7 +26,9 @@ namespace VulcanAnalytics.DBTester
 
         public abstract DataSet ExecuteStatementWithResult(string sqlStatement);
 
-        protected abstract string QuotedIdentifier(string identifier);
+        public abstract string QuotedIdentifier(string identifier);
+
+        public abstract string UnquotedIdentifier(string identifier);
 
 
         public void InsertData(string schemaName, string objectName, string[] columns, Object[] data)

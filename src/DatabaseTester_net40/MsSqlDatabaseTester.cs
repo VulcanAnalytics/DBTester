@@ -93,7 +93,7 @@ namespace VulcanAnalytics.DBTester
 
         private void DeleteTable(string schemaName, string tableName)
         {
-            var deleteStatement = string.Format("delete from [{0}].[{1}]", schemaName, tableName);
+            var deleteStatement = string.Format("delete from {0}.{1}", QuotedIdentifier(schemaName), QuotedIdentifier(tableName));
             ExecuteStatementWithoutResult(deleteStatement);
         }
 
@@ -125,7 +125,7 @@ namespace VulcanAnalytics.DBTester
 
         public override int RowCount(string schemaName, string objectName)
         {
-            var sqlStatement = string.Format("select count(*) from [{0}].[{1}];", schemaName, objectName);
+            var sqlStatement = string.Format("select count(*) from {0}.{1};", QuotedIdentifier(schemaName), QuotedIdentifier(objectName));
 
             var results = database.ExecuteWithResults(sqlStatement);
 
@@ -161,9 +161,18 @@ namespace VulcanAnalytics.DBTester
             return results;
         }
 
-        protected override string QuotedIdentifier(string identifier)
+        public override string QuotedIdentifier(string identifier)
         {
-            return string.Format("[{0}]",identifier);
+            return string.Format("[{0}]", UnquotedIdentifier(identifier));
+        }
+
+        public override string UnquotedIdentifier(string identifier)
+        {
+            if (identifier.StartsWith("[") && identifier.EndsWith("]"))
+            {
+                return identifier.TrimStart('[').TrimEnd(']');
+            }
+            else return identifier;
         }
 
         protected override string ConvertCellToText(object cell)
