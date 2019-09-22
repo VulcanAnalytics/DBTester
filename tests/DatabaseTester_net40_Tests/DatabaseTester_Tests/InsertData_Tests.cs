@@ -427,7 +427,7 @@ namespace VulcanAnalytics.DBTester.dbSpecflow_tests.DatabaseTester_Tests
 
 
             var results = tester.ObjectData(schemaName, tableName);
-            var col1Data = results.Rows[0]["col1"].ToString();
+            var col1Data = ((DateTime)results.Rows[0]["col1"]).ToString("dd/MM/yyyy HH:mm:ss");
             var actualCount = tester.RowCount(schemaName, tableName);
             Assert.AreEqual(expectedCount, actualCount);
             Assert.AreEqual("01/01/2000 00:00:00", col1Data);
@@ -451,7 +451,7 @@ namespace VulcanAnalytics.DBTester.dbSpecflow_tests.DatabaseTester_Tests
 
 
             var results = tester.ObjectData(schemaName, tableName);
-            var col1Data = results.Rows[0]["col1"].ToString();
+            var col1Data = ((DateTime)results.Rows[0]["col1"]).ToString("dd/MM/yyyy HH:mm:ss");
             var actualCount = tester.RowCount(schemaName, tableName);
             Assert.AreEqual(expectedCount, actualCount);
             Assert.AreEqual("01/01/2000 00:00:00", col1Data);
