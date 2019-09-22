@@ -7,14 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ### Added
 ### Changed
- - Error message includes SQL statement for any direct or indirect calls to `ExecuteStatementWithoutResult` which fail @darrencomeau
 ### Deprecated
 ### Removed
+### Fixed
+### Security
+
+## [1.0.0-beta4] - 2019-09-22
+### Changed
+ - Error message includes SQL statement for any direct or indirect calls to `ExecuteStatementWithoutResult` which fail @darrencomeau
 ### Fixed
  - `RowCount` method handles object names with spaces in [@darrencomeau](https://github.com/VulcanAnalytics/DBTester/issues/49)
  - `ClearTable` method handles object names with spaces in [@darrencomeau](https://github.com/VulcanAnalytics/DBTester/issues/51)
  - `InsertData` method handles schema, object, and column names with spaces in [@darrencomeau](https://github.com/VulcanAnalytics/DBTester/issues/53)
-### Security
+ - `InsertData` method handles date/time columns [@darrencomeau](https://github.com/VulcanAnalytics/DBTester/issues/52)
 
 ## [1.0.0-beta2] - 2019-01-03
 ### Added

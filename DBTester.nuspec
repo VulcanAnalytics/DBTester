@@ -15,15 +15,15 @@
 
     <releaseNotes>
       Beta Release
-      
-      ### Added
+
+      ## [1.0.0-beta4] - 2019-09-22
       ### Changed
-      ### Deprecated
-      ### Removed
+      - Error message includes SQL statement for any direct or indirect calls to `ExecuteStatementWithoutResult` which fail @darrencomeau
       ### Fixed
       - `RowCount` method handles object names with spaces in [@darrencomeau](https://github.com/VulcanAnalytics/DBTester/issues/49)
       - `ClearTable` method handles object names with spaces in [@darrencomeau](https://github.com/VulcanAnalytics/DBTester/issues/51)
-      ### Security
+      - `InsertData` method handles schema, object, and column names with spaces in [@darrencomeau](https://github.com/VulcanAnalytics/DBTester/issues/53)
+      - `InsertData` method handles date/time columns [@darrencomeau](https://github.com/VulcanAnalytics/DBTester/issues/52)
 
       Full [changelog](https://github.com/VulcanAnalytics/DBTester/blob/master/CHANGELOG.md)
     </releaseNotes>

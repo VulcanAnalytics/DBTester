@@ -72,7 +72,7 @@ A few of the key aspects to have in place are;
 
 Much of this is already in place via Microsoft DevOps (formally Visual Studio Team Services)
 
-With this in place over the coming month or so (October 2018) - I would then be welcoming the idea of other contributors being involved.
+This library has been used with two of my corporate clients greatly reducing the time to get tests up and running, as well as in my own personal projects - I would welcome the idea of other contributors being involved and helping drive this test framework further.
 
 ### Where can I get it?
 
